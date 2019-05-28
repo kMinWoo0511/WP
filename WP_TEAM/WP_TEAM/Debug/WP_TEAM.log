@@ -1,0 +1,4 @@
+﻿  WP_TEAM.cpp
+d:\my_pg\windows_p\wp_team\wp_team\wp_team.cpp(163): warning C4101: 'olddc' :참조되지 않은 지역 변수입니다.
+d:\my_pg\windows_p\wp_team\wp_team\wp_team.cpp(163): warning C4101: 'memdc' :참조되지 않은 지역 변수입니다.
+  WP_TEAM.vcxproj -> D:\My_PG\Windows_P\WP_TEAM\Debug\WP_TEAM.exe
