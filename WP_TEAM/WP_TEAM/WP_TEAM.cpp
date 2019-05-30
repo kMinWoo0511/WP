@@ -16,9 +16,11 @@ LARGE_INTEGER	g_tSecond;
 LARGE_INTEGER	g_tTime;
 float			g_fDeltaTime;
 HWND g_hwnd;
-HDC MemDC;
+HDC MemDC,MYHDC;
 bool GameLoop = true;
 DWORD FPS = 60;
+HBITMAP hbuf;
+GameManager Game;
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -80,8 +82,24 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		{
 			if (g_fDeltaTime >= 1/FPS)
 			{
+				HDC hdc = GetDC(g_hwnd);
+				MemDC = CreateCompatibleDC(hdc);
+				hbuf = CreateCompatibleBitmap(hdc, 1200, 900);
+				HBITMAP oldbit = (HBITMAP)SelectObject(MemDC, hbuf);
+				RECT temp;
+				
+				Game.GameDraw(MemDC, g_hwnd);
 
+				BitBlt(hdc, 0, 0, 1200, 900, MemDC, 0, 0, SRCCOPY);
+
+				SelectObject(MemDC, oldbit);
+				DeleteObject(MemDC);
+				DeleteObject(hbuf);
+				ReleaseDC(g_hwnd, hdc);
 				g_tTime = tTime;
+				
+				Game.GameUpdate(g_fDeltaTime);
+				//InvalidateRect(g_hwnd, NULL, false);
 			}
 			
 		}
@@ -142,6 +160,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
+   g_hwnd = hWnd;
+
    return TRUE;
 }
 
@@ -155,39 +175,28 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
-GameManager Game;
+
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	static HBITMAP hbit, obit;
-	HDC memdc, olddc;
-	static HBITMAP hero_image;
-	static RECT temp;
-	static float mytime = 1000/120;
     switch (message)
     {
 	case WM_CREATE:
 	{
-		GetClientRect(hWnd, &temp);
-		//SetTimer(hWnd, 1, 1000/120, NULL);
 		Game.Game_init(hInst, hWnd);
 		break;
 	}
-		
-	case WM_TIMER:
-	{
-		float dt = mytime / 1000;
-		//Game.GameUpdate(hWnd,dt);
-		
-		InvalidateRect(hWnd, NULL, false);
-	}
-		break;
     case WM_PAINT:
         {
-	
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-           
+			MemDC = CreateCompatibleDC(hdc);
+			HBITMAP oldbit = (HBITMAP)SelectObject(MemDC, hbuf);
+			BitBlt(hdc, 0, 0, 1200, 900, MemDC, 0, 0, SRCCOPY);
+			
+			SelectObject(MemDC, oldbit);
+			DeleteObject(MemDC);
+			DeleteObject(hbuf);
 			EndPaint(hWnd, &ps);
         }
         break;

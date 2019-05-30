@@ -12,9 +12,9 @@ void GameManager::Game_init(HINSTANCE hInst, HWND hWnd)
 	knight = new HERO(hInst, hwnd);
 }
 
-void GameManager::GameUpdate(HWND hWnd,float dt)
+void GameManager::GameUpdate(float dt)
 { 
-	knight->update(hwnd);
+	knight->update(dt);
 }
 
 void GameManager::GameDraw(HDC hdc, HWND hWnd)

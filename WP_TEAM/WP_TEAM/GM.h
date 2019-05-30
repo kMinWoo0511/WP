@@ -11,6 +11,6 @@ public:
 	~GameManager();
 
 	void Game_init(HINSTANCE,HWND);
-	void GameUpdate(HWND,float);
+	void GameUpdate(float);
 	void GameDraw(HDC, HWND);
 };
