@@ -170,8 +170,8 @@
     <ResourceCompile Include="WP_TEAM.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\kmwkm\OneDrive\바탕 화면\Sprite\game1.bmp" />
     <Image Include="small.ico" />
+    <Image Include="Sprite\game1.bmp" />
     <Image Include="WP_TEAM.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

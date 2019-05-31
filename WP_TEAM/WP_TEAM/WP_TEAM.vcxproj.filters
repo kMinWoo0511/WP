@@ -60,7 +60,7 @@
     <Image Include="WP_TEAM.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="C:\Users\kmwkm\OneDrive\바탕 화면\Sprite\game1.bmp">
+    <Image Include="Sprite\game1.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

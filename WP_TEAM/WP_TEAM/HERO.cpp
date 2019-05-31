@@ -3,14 +3,17 @@
 HERO::HERO(HINSTANCE hInst,HWND hWnd)
 {
 	hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
-	pos.x = 300;
-	pos.y = 300;
+	pos.x = 600;
+	pos.y = 600;
+	srcpos.x = srcpos.y = 0;
+	offset.x = offset.y = 0;
 	speed = 3;
-	imgW = 55;
+	imgW = 75;
 	imgH = 110;
 	state = IDLE;
 	direction = RIGHT;
 	ani_state = 0;
+	jump_z = 0;
 	update_hitbox();
 }
 
@@ -33,10 +36,10 @@ void HERO::update(float dt)
 
 void HERO::update_hitbox()
 {
-	hitbox.left = pos.x - 30;
-	hitbox.top = pos.y - 65;
-	hitbox.right = pos.x + 30;
-	hitbox.bottom = pos.y + 65;
+	hitbox.left = pos.x - imgW;
+	hitbox.top = pos.y - imgH;
+	hitbox.right = pos.x + imgW;
+	hitbox.bottom = pos.y + imgH;
 }
 
 void HERO::draw(HDC memdc,HWND hWnd)
@@ -47,7 +50,13 @@ void HERO::draw(HDC memdc,HWND hWnd)
 	RECT temp;
 	GetClientRect(hWnd, &temp);
 	FillRect(memdc, &temp, (HBRUSH)GetStockObject(WHITE_BRUSH));
-	TransparentBlt(memdc, pos.x, pos.y, imgW, imgH, imagedc, 0 + 60 * ani_frame, 0 + 130 * ani_state, 65, 130, RGB(10, 9, 8));
+
+	MY_PFLOAT hero_pos = this->getpos();
+	hero_pos.x -= offset.x + imgW / 2;
+	hero_pos.y -= imgH + jump_z;
+
+	TransparentBlt(memdc, hero_pos.x, hero_pos.y, imgW, imgH, imagedc, srcpos.x + 50 * ani_frame, srcpos.y, 100, 150, RGB(10, 9, 8));
+
 	SelectObject(imagedc, oldbit);
 	DeleteObject(imagedc);
 }
@@ -55,28 +64,41 @@ void HERO::draw(HDC memdc,HWND hWnd)
 void HERO::move(float dt)
 {
 	float dt_speed = (speed*100) * dt;
-	if (KEY_UP('W') || KEY_UP('A') || KEY_UP('S') || KEY_UP('D')) state = IDLE;
+	
+	if (state != JUMP && state != DROP) state = IDLE;
 
-	if (KEY_DOWN('W'))
+	if (KEY_DOWN(VK_UP))
 	{
-		pos.y -= dt_speed;
-	}
-	if (KEY_DOWN('A'))
-	{
-		pos.x -= dt_speed;
-		state = WALK;
-		direction = LEFT;
-	}
-	if (KEY_DOWN('S'))
-	{
-		pos.y += dt_speed;
 		
 	}
-	if (KEY_DOWN('D'))
+	if (KEY_DOWN(VK_LEFT))
+	{
+		pos.x -= dt_speed;
+		if (state != JUMP && state != DROP)
+		{
+			state = WALK;
+			direction = LEFT;
+		}
+		
+	}
+	if (KEY_DOWN(VK_DOWN))
+	{
+		
+		
+	}
+	if (KEY_DOWN(VK_RIGHT))
 	{
 		pos.x += dt_speed;
-		state = WALK;
-		direction = RIGHT;
+		if (state != JUMP && state != DROP)
+		{
+			state = WALK;
+			direction = RIGHT;
+		}
+	}
+
+	if (KEY_DOWN('Z')) {
+	
+		state = JUMP;
 	}
 
 }
@@ -86,20 +108,62 @@ void HERO::animation(float dt)
 	switch (state)
 	{
 	case IDLE: // ¸ØÃçÀÖ´Â »óÅÂ - ¾Ö´Ï¸ÞÀÌ¼Ç ¸¸µé¾î¾ßÇÔ
+		srcpos = makepos(0, 10);
 		ani_frame = 0;
 		ani_state = direction;
 		break;
 	case WALK:
+		srcpos = makepos(0, 150);
 		framedeleay += dt;
 		ani_state = direction;
 		if (framedeleay >= 0.1f)
 		{
 			framedeleay = 0;
 			ani_frame++;
-			if (ani_frame >= 2) ani_frame = 0;
+			if (ani_frame >= 7) ani_frame = 0;
 		}
 		break;
-	case ATTACK:
+	case JUMP:
+		framedeleay += dt;
+		if (framedeleay < 0.1f)
+		{
+			jump_power = JUMPPOWER;
+			ani_frame = 0;
+			break;
+		}
+
+		jump_z += jump_power * dt;
+		jump_power -= GRAVITY * dt;
+		
+		if (jump_power <= 0)
+		{
+			jump_power = 0;
+			state = DROP;
+		}
+		break;
+	case DROP:
+		jump_z -= jump_power * dt;
+		jump_power += GRAVITY * dt;
+		framedeleay += dt;
+		
+		if (jump_z <= 0) //ÂøÁö
+		{
+			jump_z = 0;
+			state = IDLE;
+			
+		}
+		else
+		{
+			//³«ÇÏÁß
+		}
 		break;
 	}
+}
+
+POINT HERO::makepos(int x, int y)
+{
+	POINT point;
+	point.x = x;
+	point.y = y;
+	return point;
 }
