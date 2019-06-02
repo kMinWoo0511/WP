@@ -74,9 +74,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		
 		if (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
 		{
-			GetMessage(&msg, NULL, 0, 0);
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			if (msg.message == WM_QUIT)
+			{
+				GameLoop = false;
+			}
+			else
+			{
+				GetMessage(&msg, NULL, 0, 0);
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
 		}
 		else
 		{
@@ -99,7 +106,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				g_tTime = tTime;
 				
 				Game.GameUpdate(g_fDeltaTime);
-				//InvalidateRect(g_hwnd, NULL, false);
+				InvalidateRect(g_hwnd, NULL, false);
 			}
 			
 		}
@@ -183,11 +190,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
 	case WM_CREATE:
 	{
+		
 		Game.Game_init(hInst, hWnd);
 		break;
 	}
+	case WM_CHAR:
+	{
+		if (wParam == 'q')
+		{
+			//PostQuitMessage(0);
+			SendMessage(hWnd,WM_QUIT, NULL, NULL);
+		}
+	}	
+		break;
     case WM_PAINT:
         {
+		
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
 			MemDC = CreateCompatibleDC(hdc);
