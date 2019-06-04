@@ -23,3 +23,5 @@
 #include "resource.h"
 #include "HERO.h"
 #include "GM.h"
+
+extern GameManager Game;

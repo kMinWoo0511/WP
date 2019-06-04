@@ -1,7 +1,7 @@
 ﻿  HERO.cpp
+d:\my_pg\windows_p\wp_team\wp_team\hero.cpp(42): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\my_pg\windows_p\wp_team\wp_team\hero.cpp(43): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\my_pg\windows_p\wp_team\wp_team\hero.cpp(44): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\my_pg\windows_p\wp_team\wp_team\hero.cpp(45): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp_team\wp_team\hero.cpp(46): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp_team\wp_team\hero.cpp(62): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp_team\wp_team\hero.cpp(61): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   WP_TEAM.vcxproj -> D:\My_PG\Windows_P\WP_TEAM\Debug\WP_TEAM.exe
