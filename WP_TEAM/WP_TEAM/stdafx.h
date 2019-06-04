@@ -23,12 +23,6 @@
 #include <stdio.h>
 #include "resource.h"
 #include "HERO.h"
-<<<<<<< HEAD
 #include "BOSS.h"
 #include "GM.h"
 extern GameManager Game;
-=======
-#include "GM.h"
-
-extern GameManager Game;
->>>>>>> a5decc261677d432113912aa7639b6238c1bb227

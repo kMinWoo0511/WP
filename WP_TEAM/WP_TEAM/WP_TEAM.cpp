@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "WP_TEAM.h"
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
-#include <time.h>
+//#include <time.h>
 #define MAX_LOADSTRING 100
 
 // 전역 변수:

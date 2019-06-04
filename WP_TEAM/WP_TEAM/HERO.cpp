@@ -77,14 +77,8 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_LEFT))
 	{
 		pos.x -= dt_speed;
-<<<<<<< HEAD
-		if (state != JUMP && state != DROP)	state = WALK;
-		direction = LEFT;
-		
-=======
 		if (state != JUMP && state != DROP) state = WALK;
 		attack_direction = direction = LEFT;
->>>>>>> a5decc261677d432113912aa7639b6238c1bb227
 	}
 	if (KEY_DOWN(VK_DOWN))
 	{
@@ -94,13 +88,8 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_RIGHT))
 	{
 		pos.x += dt_speed;
-<<<<<<< HEAD
-		if (state != JUMP && state != DROP)	state = WALK;
-		direction = RIGHT;
-=======
 		if (state != JUMP && state != DROP) state = WALK;
 		attack_direction = direction = RIGHT;
->>>>>>> a5decc261677d432113912aa7639b6238c1bb227
 	}
 
 	if (KEY_DOWN('Z')) {
