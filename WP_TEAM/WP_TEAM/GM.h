@@ -4,6 +4,7 @@
 class GameManager {
 private:
 	HERO *knight;
+	BOSS *boss1;
 	HWND hwnd;
 	
 public:
@@ -13,4 +14,5 @@ public:
 	void Game_init(HINSTANCE,HWND);
 	void GameUpdate(float);
 	void GameDraw(HDC, HWND);
+	HERO* KnightInf();
 };

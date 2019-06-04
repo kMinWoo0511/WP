@@ -13,7 +13,6 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	imgH = 110;
 	state = IDLE;
 	direction = RIGHT;
-	ani_state = 0;
 	jump_z = 0;
 	update_hitbox();
 }
@@ -75,11 +74,7 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_LEFT))
 	{
 		pos.x -= dt_speed;
-		/*if (state != JUMP && state != DROP)
-		{
-			state = WALK;
-			direction = LEFT;
-		}*/
+		if (state != JUMP && state != DROP)	state = WALK;
 		direction = LEFT;
 		
 	}
@@ -91,11 +86,7 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_RIGHT))
 	{
 		pos.x += dt_speed;
-		/*if (state != JUMP && state != DROP)
-		{
-			state = WALK;
-			direction = RIGHT;
-		}*/
+		if (state != JUMP && state != DROP)	state = WALK;
 		direction = RIGHT;
 	}
 
@@ -113,12 +104,10 @@ void HERO::animation(float dt)
 	case IDLE: // 멈춰있는 상태 - 애니메이션 만들어야함
 		srcpos = makepos(direction == RIGHT ? 0 : 795, 0);
 		ani_frame = 0;
-		ani_state = direction;
 		break;
 	case WALK:
 		srcpos = makepos(direction == RIGHT ? 0 : 795, 140);
 		framedeleay += dt;
-		ani_state = direction;
 		if (framedeleay >= 0.1f)
 		{
 			framedeleay = 0;

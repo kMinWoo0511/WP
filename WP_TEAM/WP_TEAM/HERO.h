@@ -27,7 +27,7 @@ private:
 	RECT hitbox;
 	HBITMAP hero_bit;
 	POINT srcpos;
-	int ani_frame,direction,state,imgW,imgH,ani_state;
+	int ani_frame,direction,state,imgW,imgH;
 	int prev_state;
 	float framedeleay,speed;
 	float jump_z;

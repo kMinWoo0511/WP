@@ -23,7 +23,6 @@
     <ProjectGuid>{4BB84361-EA72-422E-A5B4-B32760310241}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>WPTEAM</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -148,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BOSS.h" />
     <ClInclude Include="GM.h" />
     <ClInclude Include="HERO.h" />
     <ClInclude Include="Resource.h" />
@@ -156,6 +156,7 @@
     <ClInclude Include="WP_TEAM.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BOSS.cpp" />
     <ClCompile Include="GM.cpp" />
     <ClCompile Include="HERO.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -173,6 +174,7 @@
     <Image Include="small.ico" />
     <Image Include="sprite\bitmap3.bmp" />
     <Image Include="Sprite\game1.bmp" />
+    <Image Include="Sprite\Spin.bmp" />
     <Image Include="WP_TEAM.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
+#include <math.h>
 #include <tchar.h>
 
 
@@ -22,4 +23,6 @@
 #include <stdio.h>
 #include "resource.h"
 #include "HERO.h"
+#include "BOSS.h"
 #include "GM.h"
+extern GameManager Game;

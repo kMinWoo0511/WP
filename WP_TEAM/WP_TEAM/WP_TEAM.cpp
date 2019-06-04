@@ -2,7 +2,7 @@
 //
 #include "stdafx.h"
 #include "WP_TEAM.h"
-//#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
 #include <time.h>
 #define MAX_LOADSTRING 100
 

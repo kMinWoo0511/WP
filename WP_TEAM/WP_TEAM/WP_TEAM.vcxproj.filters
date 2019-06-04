@@ -33,6 +33,9 @@
     <ClInclude Include="GM.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="BOSS.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +48,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="HERO.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BOSS.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,6 +70,9 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="sprite\bitmap3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\Spin.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
