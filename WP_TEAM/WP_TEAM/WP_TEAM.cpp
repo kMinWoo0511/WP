@@ -91,13 +91,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			{
 				HDC hdc = GetDC(g_hwnd);
 				MemDC = CreateCompatibleDC(hdc);
-				hbuf = CreateCompatibleBitmap(hdc, 1200, 900);
+				hbuf = CreateCompatibleBitmap(hdc, 1500, 900);
 				HBITMAP oldbit = (HBITMAP)SelectObject(MemDC, hbuf);
 				RECT temp;
 				
 				Game.GameDraw(MemDC, g_hwnd);
 
-				BitBlt(hdc, 0, 0, 1200, 900, MemDC, 0, 0, SRCCOPY);
+				BitBlt(hdc, 0, 0, 1500, 900, MemDC, 0, 0, SRCCOPY);
 
 				SelectObject(MemDC, oldbit);
 				DeleteObject(MemDC);
@@ -157,7 +157,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      0, 0, 1200, 900, nullptr, nullptr, hInstance, nullptr);
+      0, 0, 1500, 900, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -210,7 +210,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
 			MemDC = CreateCompatibleDC(hdc);
 			HBITMAP oldbit = (HBITMAP)SelectObject(MemDC, hbuf);
-			BitBlt(hdc, 0, 0, 1200, 900, MemDC, 0, 0, SRCCOPY);
+			BitBlt(hdc, 0, 0, 1500, 900, MemDC, 0, 0, SRCCOPY);
 			
 			SelectObject(MemDC, oldbit);
 			DeleteObject(MemDC);

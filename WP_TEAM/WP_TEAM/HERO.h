@@ -6,8 +6,10 @@
 #define GRAVITY 1500
 enum {
 	IDLE,
-	RIGHT = 0,
+	RIGHT,
 	LEFT,
+	TOP,
+	BOTTOM,
 	JUMP,
 	DROP,
 	ATTACK,
@@ -29,9 +31,12 @@ private:
 	POINT srcpos;
 	int ani_frame,direction,state,imgW,imgH;
 	int prev_state;
-	float framedeleay,speed;
+	int attack_direction;
+	int doublejumpcount;
+	float framedeleay,speed,jumpkeydeleay;
 	float jump_z;
 	float jump_power;
+
 
 public:
 	HERO(HINSTANCE, HWND);
