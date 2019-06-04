@@ -29,9 +29,12 @@ private:
 	POINT srcpos;
 	int ani_frame,direction,state,imgW,imgH,ani_state;
 	int prev_state;
+	int doublejumpcount;
+	bool firstjump,doublejump;
 	float framedeleay,speed;
 	float jump_z;
 	float jump_power;
+
 
 public:
 	HERO(HINSTANCE, HWND);

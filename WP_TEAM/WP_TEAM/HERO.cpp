@@ -5,7 +5,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	//hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
 	hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
 	pos.x = 600;
-	pos.y = 600;
+	pos.y = 700;
 	srcpos.x = srcpos.y = 0;
 	offset.x = offset.y = 0;
 	speed = 3;
@@ -15,6 +15,9 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	direction = RIGHT;
 	ani_state = 0;
 	jump_z = 0;
+	firstjump = false;
+	doublejump = false;
+	doublejumpcount = 0;
 	update_hitbox();
 }
 
@@ -92,8 +95,8 @@ void HERO::move(float dt)
 	}
 
 	if (KEY_DOWN('Z')) {
-	
-		state = JUMP;
+		
+		if (doublejumpcount < 2) state = JUMP;
 	}
 
 }
@@ -136,6 +139,7 @@ void HERO::animation(float dt)
 
 		if (jump_power <= 0)
 		{
+			doublejumpcount++;
 			ani_frame = 2;
 			jump_power = 0;
 			state = DROP;
@@ -150,11 +154,15 @@ void HERO::animation(float dt)
 		
 		if (jump_z <= 0) //ÂøÁö
 		{
+			doublejumpcount = 0;
+			firstjump = false;
+			doublejump = false;
+
 			ani_frame = 2;
 			framedeleay = 0;
 			jump_z = 0;
+			doublejumpcount = 0;
 			state = IDLE;
-			
 		}
 		else //³«ÇÏÁß
 		{
