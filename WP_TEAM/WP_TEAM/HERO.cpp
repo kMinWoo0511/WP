@@ -2,7 +2,8 @@
 
 HERO::HERO(HINSTANCE hInst,HWND hWnd)
 {
-	hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
+	//hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
+	hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
 	pos.x = 600;
 	pos.y = 600;
 	srcpos.x = srcpos.y = 0;
@@ -55,7 +56,7 @@ void HERO::draw(HDC memdc,HWND hWnd)
 	hero_pos.x -= offset.x + imgW / 2;
 	hero_pos.y -= imgH + jump_z;
 
-	TransparentBlt(memdc, hero_pos.x, hero_pos.y, imgW, imgH, imagedc, srcpos.x + 50 * ani_frame, srcpos.y, 100, 150, RGB(10, 9, 8));
+	TransparentBlt(memdc, hero_pos.x, hero_pos.y, imgW, imgH, imagedc, srcpos.x + 90 * ani_frame, srcpos.y, 80, 110, RGB(10, 9, 8));
 
 	SelectObject(imagedc, oldbit);
 	DeleteObject(imagedc);
@@ -74,11 +75,12 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_LEFT))
 	{
 		pos.x -= dt_speed;
-		if (state != JUMP && state != DROP)
+		/*if (state != JUMP && state != DROP)
 		{
 			state = WALK;
 			direction = LEFT;
-		}
+		}*/
+		direction = LEFT;
 		
 	}
 	if (KEY_DOWN(VK_DOWN))
@@ -89,11 +91,12 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_RIGHT))
 	{
 		pos.x += dt_speed;
-		if (state != JUMP && state != DROP)
+		/*if (state != JUMP && state != DROP)
 		{
 			state = WALK;
 			direction = RIGHT;
-		}
+		}*/
+		direction = RIGHT;
 	}
 
 	if (KEY_DOWN('Z')) {
@@ -108,12 +111,12 @@ void HERO::animation(float dt)
 	switch (state)
 	{
 	case IDLE: // 멈춰있는 상태 - 애니메이션 만들어야함
-		srcpos = makepos(0, 10);
+		srcpos = makepos(direction == RIGHT ? 0 : 795, 0);
 		ani_frame = 0;
 		ani_state = direction;
 		break;
 	case WALK:
-		srcpos = makepos(0, 150);
+		srcpos = makepos(direction == RIGHT ? 0 : 795, 140);
 		framedeleay += dt;
 		ani_state = direction;
 		if (framedeleay >= 0.1f)
@@ -125,6 +128,7 @@ void HERO::animation(float dt)
 		break;
 	case JUMP:
 		framedeleay += dt;
+		srcpos = makepos(direction == RIGHT ? 0 : 795, 292);
 		if (framedeleay < 0.1f)
 		{
 			jump_power = JUMPPOWER;
@@ -135,8 +139,12 @@ void HERO::animation(float dt)
 		jump_z += jump_power * dt;
 		jump_power -= GRAVITY * dt;
 		
+		if (framedeleay > 0.2f) ani_frame = 1;
+		if (framedeleay > 0.4f) ani_frame = 2;
+
 		if (jump_power <= 0)
 		{
+			ani_frame = 2;
 			jump_power = 0;
 			state = DROP;
 		}

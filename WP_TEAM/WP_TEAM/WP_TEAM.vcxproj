@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
+    <Image Include="sprite\bitmap3.bmp" />
     <Image Include="Sprite\game1.bmp" />
     <Image Include="WP_TEAM.ico" />
   </ItemGroup>
