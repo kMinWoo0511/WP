@@ -75,11 +75,7 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_LEFT))
 	{
 		pos.x -= dt_speed;
-		/*if (state != JUMP && state != DROP)
-		{
-			state = WALK;
-			direction = LEFT;
-		}*/
+		if (state != JUMP && state != DROP) state = WALK;
 		direction = LEFT;
 		
 	}
@@ -91,11 +87,7 @@ void HERO::move(float dt)
 	if (KEY_DOWN(VK_RIGHT))
 	{
 		pos.x += dt_speed;
-		/*if (state != JUMP && state != DROP)
-		{
-			state = WALK;
-			direction = RIGHT;
-		}*/
+		if (state != JUMP && state != DROP) state = WALK;
 		direction = RIGHT;
 	}
 
@@ -147,22 +139,27 @@ void HERO::animation(float dt)
 			ani_frame = 2;
 			jump_power = 0;
 			state = DROP;
+			framedeleay = 0;
 		}
 		break;
 	case DROP:
+		srcpos = makepos(direction == RIGHT ? 0 : 795, 450);
 		jump_z -= jump_power * dt;
 		jump_power += GRAVITY * dt;
 		framedeleay += dt;
 		
 		if (jump_z <= 0) //ÂøÁö
 		{
+			ani_frame = 2;
+			framedeleay = 0;
 			jump_z = 0;
 			state = IDLE;
 			
 		}
-		else
+		else //³«ÇÏÁß
 		{
-			//³«ÇÏÁß
+			if (framedeleay >= 0.1f) ani_frame = 0;
+			if (framedeleay >= 0.25f) ani_frame = 1;
 		}
 		break;
 	}
