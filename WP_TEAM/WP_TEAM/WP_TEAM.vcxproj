@@ -174,8 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
-    <Image Include="sprite\bitmap3.bmp" />
-    <Image Include="Sprite\game1.bmp" />
+    <Image Include="Sprite\Attack.bmp" />
+    <Image Include="Sprite\Move.bmp" />
     <Image Include="Sprite\Spin.bmp" />
     <Image Include="WP_TEAM.ico" />
   </ItemGroup>

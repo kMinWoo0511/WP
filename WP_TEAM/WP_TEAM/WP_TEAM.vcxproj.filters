@@ -66,13 +66,13 @@
     <Image Include="WP_TEAM.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Sprite\game1.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="sprite\bitmap3.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
     <Image Include="Sprite\Spin.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\Move.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\Attack.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
