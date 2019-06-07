@@ -117,13 +117,14 @@ void HERO::move(float dt)
 	if (KEY_DOWN('Z')) {
 		
 		if(doublejumpcount == 0) jumpkeydeleay += dt;
-		if (doublejumpcount < 2) state = JUMP;
+		if (doublejumpcount < 2 && state != ATTACK && prev_state != ATTACK) state = JUMP;
 	}
 
 	if (KEY_DOWN('X'))
 	{	
 		if (!attack && attackdeleay >= ATTACK_COOLTIME)
 		{
+			
 			attackdeleay = 0;
 			ani_frame = 0;
 			prev_state = state;
@@ -131,7 +132,10 @@ void HERO::move(float dt)
 			attack = true;
 		}
 	}
-	if (attackdeleay <= ATTACK_COOLTIME) attackdeleay += dt;
+	if (attackdeleay <= ATTACK_COOLTIME) {
+		attackdeleay += dt;
+	}
+
 }
 
 void HERO::animation(float dt)
@@ -165,6 +169,7 @@ void HERO::animation(float dt)
 		framedeleay += dt;
 		if (framedeleay < 0.1f)
 		{
+			
 			jump_power = JUMPPOWER;
 			ani_frame = 0;
 			break;
@@ -196,6 +201,7 @@ void HERO::animation(float dt)
 		
 		if (jump_z <= 0) //ÂøÁö
 		{
+			prev_state = JUMP;
 			jumpkeydeleay = 0;
 			doublejumpcount = 0;
 			ani_frame = 0;
@@ -214,6 +220,18 @@ void HERO::animation(float dt)
 	case ATTACK:
 		if (attack) //Á¡ÇÁ¶û drop¸ØÃá½Ã°£µ¿¾È Á¡ÇÁ·Â °è»êÇÏ±â
 		{
+			if (prev_state == JUMP)
+			{
+				jump_z += jump_power * dt;
+				jump_power -= GRAVITY * dt;
+			
+			}
+			else if (prev_state == DROP)
+			{
+				jump_z -= jump_power * dt;
+				jump_power += GRAVITY * dt;
+			}
+
 			show_bit = attack_bit;
 			srcw = 90;
 			srch = 40;
@@ -224,22 +242,30 @@ void HERO::animation(float dt)
 				srcpos = makepos(0, 444);
 				break;
 			case BOTTOM:
+				srcpos = makepos(0, 613);
 				break;
 			case LEFT:
+				srcpos = makepos(800, 0);
 				break;
 			case RIGHT:
 				srcpos = makepos(0, 0);
 				break;
 			}
-			if (framedeleay >= 0.08f)
+			if (framedeleay >= 0.07f)
 			{
 				framedeleay = 0;
 				ani_frame++;
 				if (ani_frame >= 4) {
 					ani_frame = 0;
 					attack = false;
-					if (prev_state == JUMP) prev_state = DROP;
-					state = prev_state;
+					if (prev_state == JUMP)
+					{
+						prev_state = ATTACK;
+						state = DROP;
+					}
+					else {
+						state = prev_state;
+					}
 				}
 			}
 		}
