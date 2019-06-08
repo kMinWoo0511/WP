@@ -5,24 +5,30 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	//hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
 	hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP5));
 	attack_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP2));
+	motion_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
 	show_bit = hero_bit;
 	pos.x = 600;
 	pos.y = 635;
 	srcpos.x = srcpos.y = 0;
-	speed = 3;
+	srceffect = effectpos = srcpos;
+	speed = SPEED;
+	effect_frame = 0;
+	dashspeed = DASHSPEED;
 	imgW = 100;
 	imgH = 150;
 	srcw = srch =0;
 	state = IDLE;
 	//MoveStop = false;
 	attack = false;
+	jumpattack_check = false;
 	attack_direction = 0;
 	direction = RIGHT;
 	prev_state = NULL;
 	jump_z = 0;
+	dash = false;
 	jumpkeydeleay = 0;
 	doublejumpcount = 0;
-	attackdeleay = 0;
+	attackdeleay = dash_cooltime = 5;
 	update_hitbox();
 }
 
@@ -60,19 +66,27 @@ void HERO::draw(HDC memdc,HWND hWnd)
 	GetClientRect(hWnd, &temp);
 	FillRect(memdc, &temp, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
+
 	MY_PFLOAT hero_pos = this->getpos();
 	hero_pos.x -= (imgW+srcw) / 2 + 0;
 	hero_pos.y -= jump_z + (imgH+srch) / 2;
 	TransparentBlt(memdc, hero_pos.x, hero_pos.y, (imgW+srcw), (imgH+srch), imagedc, srcpos.x + (imgW+srcw) * ani_frame, srcpos.y, (imgW+srcw), (imgH+srch), RGB(250, 247, 247));
+
+	if (attack)
+	{
+		TransparentBlt(memdc, hero_pos.x + effectpos.x, hero_pos.y + effectpos.y, 150, 190, imagedc, srceffect.x + 205 * effect_frame, srceffect.y, 200, 190, RGB(255, 255, 255));
+	}
+
+	
 	SelectObject(imagedc, oldbit);
 	DeleteObject(imagedc);
 }
 
 void HERO::move(float dt)
 {
-	float dt_speed = (speed*100) * dt;
+	float dt_speed = speed * dt;
 	
-	if (state != JUMP && state != DROP && state != ATTACK) state = IDLE;
+	if (state != JUMP && state != DROP && state != ATTACK && state != DASH) state = IDLE;
 
 	if (KEY_DOWN(VK_UP))
 	{
@@ -86,7 +100,7 @@ void HERO::move(float dt)
 			pos.x -= dt_speed;
 			attack_direction = LEFT;
 		}
-		if (state != JUMP && state != DROP && state != ATTACK)
+		if (state != JUMP && state != DROP && state != ATTACK && state != DASH)
 		{
 			state = WALK;
 			attack_direction = direction = LEFT;
@@ -107,7 +121,7 @@ void HERO::move(float dt)
 			attack_direction = RIGHT;
 		}
 
-		if (state != JUMP && state != DROP && state != ATTACK) {
+		if (state != JUMP && state != DROP && state != ATTACK && state != DASH) {
 			state = WALK;
 			attack_direction = direction = RIGHT;
 		}
@@ -122,9 +136,8 @@ void HERO::move(float dt)
 
 	if (KEY_DOWN('X'))
 	{	
-		if (!attack && attackdeleay >= ATTACK_COOLTIME)
+		if (!attack && attackdeleay >= ATTACK_COOLTIME && state != DASH)
 		{
-			
 			attackdeleay = 0;
 			ani_frame = 0;
 			prev_state = state;
@@ -136,6 +149,19 @@ void HERO::move(float dt)
 		attackdeleay += dt;
 	}
 
+	if (KEY_DOWN('C')) {
+		if (!dash && dash_cooltime >= DASH_COOLTIME && state != ATTACK) {
+			framedeleay = 0;
+			dash_cooltime = 0;
+			ani_frame = 0;
+			prev_state = state;
+			state = DASH;
+			dash = true;
+		}
+	}
+	if (dash_cooltime <= DASH_COOLTIME) {
+		dash_cooltime += dt;
+	}
 }
 
 void HERO::animation(float dt)
@@ -146,6 +172,7 @@ void HERO::animation(float dt)
 		show_bit = hero_bit;
 		srcw = srch = 0;
 		srcpos = makepos(direction == RIGHT ? 0 : 600, 0);
+		jumpattack_check = false;
 		attack_direction = direction;
 		framedeleay += dt;
 		ani_frame = 0;
@@ -218,16 +245,18 @@ void HERO::animation(float dt)
 		}
 		break;
 	case ATTACK:
-		if (attack) //Á¡ÇÁ¶û drop¸ØÃá½Ã°£µ¿¾È Á¡ÇÁ·Â °è»êÇÏ±â
+		if (attack)
 		{
 			if (prev_state == JUMP)
 			{
+				jumpattack_check = true;
 				jump_z += jump_power * dt;
 				jump_power -= GRAVITY * dt;
 			
 			}
 			else if (prev_state == DROP)
 			{
+				jumpattack_check = true;
 				jump_z -= jump_power * dt;
 				jump_power += GRAVITY * dt;
 			}
@@ -236,27 +265,42 @@ void HERO::animation(float dt)
 			srcw = 90;
 			srch = 40;
 			framedeleay += dt;
+			int effext_max = 4;
 			switch (attack_direction)
 			{
 			case TOP:
 				srcpos = makepos(0, 444);
+				srceffect = makepos(800, 800);
+				effectpos = makepos(40, -190);
 				break;
 			case BOTTOM:
 				srcpos = makepos(0, 613);
+				srceffect = makepos(1200, 800);
+				effectpos = makepos(40, 110);
 				break;
 			case LEFT:
 				srcpos = makepos(800, 0);
+				srceffect = makepos(-15, 1000);
+				effectpos = makepos(-110, 0);
 				break;
 			case RIGHT:
 				srcpos = makepos(0, 0);
+				srceffect = makepos(0, 808);
+				effectpos = makepos(180, 0);
 				break;
 			}
 			if (framedeleay >= 0.07f)
 			{
 				framedeleay = 0;
 				ani_frame++;
+				effect_frame++;
+				if (attack_direction == TOP || attack_direction == BOTTOM)
+				{
+					effect_frame = 0;
+				}
 				if (ani_frame >= 4) {
 					ani_frame = 0;
+					effect_frame = 0;
 					attack = false;
 					if (prev_state == JUMP)
 					{
@@ -267,8 +311,61 @@ void HERO::animation(float dt)
 						state = prev_state;
 					}
 				}
+				
 			}
 		}
+		break;
+	case DASH:
+		if (dash)
+		{
+			show_bit = motion_bit;
+			srcw = 100;
+			srch = 50;
+			srcpos = makepos(direction == RIGHT ? 0 : 1600, 0);
+
+			/*if (prev_state == JUMP)
+			{
+				jump_z += jump_power * dt;
+				jump_power -= GRAVITY * dt;
+
+			}
+			else if (prev_state == DROP)
+			{
+				jump_z -= jump_power * dt;
+				jump_power += GRAVITY * dt;
+			}*/
+
+			if (direction == RIGHT)
+			{
+				pos.x += dashspeed * dt;
+			}
+			if (direction == LEFT)
+			{
+				pos.x -= dashspeed * dt;
+			}
+
+			framedeleay += dt;
+			if (framedeleay >= 0.1f)
+			{
+				framedeleay = 0;
+				ani_frame++;
+				if (ani_frame >= 4) {
+					ani_frame = 0;
+					effect_frame = 0;
+					dash = false;
+					if (prev_state == JUMP)
+					{
+						prev_state = DASH;
+						state = DROP;
+					}
+					else {
+						state = IDLE;
+					}
+					
+				}
+			}
+		}
+		
 		break;
 	}
 }

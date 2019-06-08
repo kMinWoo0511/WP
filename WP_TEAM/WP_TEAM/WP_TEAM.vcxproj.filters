@@ -75,5 +75,8 @@
     <Image Include="Sprite\Attack.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Sprite\Motion.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
