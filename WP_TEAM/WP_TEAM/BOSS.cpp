@@ -87,8 +87,16 @@ void BOSS::CrashCheck()
 			&& !IsPointIncircle(hero.left, hero.bottom, getpos().x, getpos().y));
 		else if (getpos().x > hero.right && getpos().y > hero.bottom
 			&& !IsPointIncircle(hero.right, hero.bottom, getpos().x, getpos().y));
-	/*	else
-			printf("p: %f %f c: %f %f", Game.KnightInf()->getpos().x, Game.KnightInf()->getpos().y, pos.x, pos.y);*/
+		else
+		{
+			//몬스터와 충돌
+			if (Game.KnightInf()->gethit()) {
+				Game.KnightInf()->setHP(Game.KnightInf()->getHP() - 1);
+				Game.KnightInf()->sethitcheck(false);
+				printf("%d\n", Game.KnightInf()->getHP());
+			}
+		}
+			/*printf("p: %f %f c: %f %f", Game.KnightInf()->getpos().x, Game.KnightInf()->getpos().y, pos.x, pos.y);*/
 	}
 }
 

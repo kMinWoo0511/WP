@@ -18,6 +18,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	imgH = 150;
 	srcw = srch =0;
 	state = IDLE;
+	HP = 5;
 	//MoveStop = false;
 	attack = false;
 	jumpattack_check = false;
@@ -26,6 +27,8 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	prev_state = NULL;
 	jump_z = 0;
 	dash = false;
+	hit_check = true;
+	hit_cooltime = 0;
 	jumpkeydeleay = 0;
 	doublejumpcount = 0;
 	attackdeleay = dash_cooltime = 5;
@@ -86,7 +89,7 @@ void HERO::move(float dt)
 {
 	float dt_speed = speed * dt;
 	
-	if (state != JUMP && state != DROP && state != ATTACK && state != DASH) state = IDLE;
+	if (state != JUMP && state != DROP && state != ATTACK && state != DASH) prev_state = state = IDLE;
 
 	if (KEY_DOWN(VK_UP))
 	{
@@ -95,7 +98,7 @@ void HERO::move(float dt)
 	}
 	if (KEY_DOWN(VK_LEFT))
 	{
-		if (state != ATTACK)
+		if (state != ATTACK && state != DASH)
 		{
 			pos.x -= dt_speed;
 			attack_direction = LEFT;
@@ -105,7 +108,7 @@ void HERO::move(float dt)
 			state = WALK;
 			attack_direction = direction = LEFT;
 		}
-		direction = LEFT;
+		if(state != DASH) direction = LEFT;
 	}
 	if (KEY_DOWN(VK_DOWN))
 	{
@@ -115,23 +118,24 @@ void HERO::move(float dt)
 	}
 	if (KEY_DOWN(VK_RIGHT))
 	{
-		if (state != ATTACK)
+		if (state != ATTACK && state != DASH)
 		{
 			pos.x += dt_speed;
 			attack_direction = RIGHT;
 		}
 
 		if (state != JUMP && state != DROP && state != ATTACK && state != DASH) {
+			
 			state = WALK;
 			attack_direction = direction = RIGHT;
 		}
-		direction = RIGHT;
+		if (state != DASH) direction = RIGHT;
 		
 	}
 	if (KEY_DOWN('Z')) {
 		
 		if(doublejumpcount == 0) jumpkeydeleay += dt;
-		if (doublejumpcount < 2 && state != ATTACK && prev_state != ATTACK) state = JUMP;
+		if (doublejumpcount < 2 && state != ATTACK && prev_state != ATTACK && state != DASH && prev_state != DASH) state = JUMP;
 	}
 
 	if (KEY_DOWN('X'))
@@ -161,6 +165,27 @@ void HERO::move(float dt)
 	}
 	if (dash_cooltime <= DASH_COOLTIME) {
 		dash_cooltime += dt;
+	}
+
+	//충돌쿨타임계산
+	if (state != DASH)
+	{
+		if (hit_check == false)
+		{
+			hit_cooltime += dt;
+			if (hit_cooltime >= HIT_COOLTIME)
+			{
+				hit_cooltime = 0;
+				hit_check = true;
+			}
+		}
+	}
+	
+	//HP가 0일경우
+	if (HP == 0)
+	{
+		//죽는것 구현하기
+		printf("die\n");
 	}
 }
 
@@ -318,6 +343,7 @@ void HERO::animation(float dt)
 	case DASH:
 		if (dash)
 		{
+			hit_check = false; //무적
 			show_bit = motion_bit;
 			srcw = 100;
 			srch = 50;
@@ -328,13 +354,13 @@ void HERO::animation(float dt)
 				jump_z += jump_power * dt;
 				jump_power -= GRAVITY * dt;
 
-			}
-			else if (prev_state == DROP)
+			}*/
+			/*if (prev_state == DROP)
 			{
 				jump_z -= jump_power * dt;
 				jump_power += GRAVITY * dt;
-			}*/
-
+			}
+*/
 			if (direction == RIGHT)
 			{
 				pos.x += dashspeed * dt;
@@ -352,14 +378,20 @@ void HERO::animation(float dt)
 				if (ani_frame >= 4) {
 					ani_frame = 0;
 					effect_frame = 0;
+					hit_check = true; //무적 해제
 					dash = false;
 					if (prev_state == JUMP)
 					{
 						prev_state = DASH;
 						state = DROP;
 					}
+					else if(prev_state == DROP){
+						state = prev_state;
+						prev_state = DASH;
+					}
 					else {
 						state = IDLE;
+						prev_state = DASH;
 					}
 					
 				}
@@ -376,4 +408,29 @@ POINT HERO::makepos(int x, int y)
 	point.x = x;
 	point.y = y;
 	return point;
+}
+
+int HERO::getHP() const
+{
+	return HP;
+}
+
+bool HERO::gethit() const
+{
+	return hit_check;
+}
+
+void HERO::setHP(int hp)
+{
+	HP = hp;
+}
+
+void HERO::sethitcheck(bool hitcheck)
+{
+	hit_check = hitcheck;
+}
+
+int HERO::getstate() const
+{
+	return state;
 }
