@@ -15,4 +15,5 @@ public:
 	void GameUpdate(float);
 	void GameDraw(HDC, HWND);
 	HERO* KnightInf();
+	BOSS* BossInf();
 };

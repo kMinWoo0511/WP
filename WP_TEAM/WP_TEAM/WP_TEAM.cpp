@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "WP_TEAM.h"
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
-//#include <time.h>
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -64,8 +63,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	
 	QueryPerformanceFrequency(&g_tSecond);
 	QueryPerformanceCounter(&g_tTime);
+	srand((unsigned)time(NULL));
 
-	
 	while (GameLoop)
 	{
 		LARGE_INTEGER tTime;

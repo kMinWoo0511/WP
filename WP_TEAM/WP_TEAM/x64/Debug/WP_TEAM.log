@@ -1,32 +1,26 @@
-﻿  stdafx.cpp
-  BOSS.cpp
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(37): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(38): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(39): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(40): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(54): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(56): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(78): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(77): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(76): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(75): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(83): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(85): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(87): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(89): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(89): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(110): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(112): warning C4244: '*=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\boss.cpp(176): warning C4244: 'return': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  GM.cpp
-  HERO.cpp
-d:\my_pg\windows_p\wp\wp_team\wp_team\hero.cpp(54): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\hero.cpp(55): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\hero.cpp(56): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\hero.cpp(57): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\hero.cpp(73): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\my_pg\windows_p\wp\wp_team\wp_team\hero.cpp(77): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  WP_TEAM.cpp
-d:\my_pg\windows_p\wp\wp_team\wp_team\wp_team.cpp(96): warning C4101: 'temp' :참조되지 않은 지역 변수입니다.
-  코드를 생성하고 있습니다...
-  WP_TEAM.vcxproj -> D:\My_PG\Windows_P\WP\WP_TEAM\x64\Debug\WP_TEAM.exe
+﻿  BOSS.cpp
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(28): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(29): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(47): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(48): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(49): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(50): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(64): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(66): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(88): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(87): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(86): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(85): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(93): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(95): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(97): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(99): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(99): warning C4390: ';': 제어된 빈 문이 있습니다. 이 문이 필요합니까?
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(132): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(138): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(139): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(149): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(150): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(152): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(185): warning C4244: 'return': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  WP_TEAM.vcxproj -> C:\Users\user\Desktop\WP_TEAM\WP_TEAM\x64\Debug\WP_TEAM.exe

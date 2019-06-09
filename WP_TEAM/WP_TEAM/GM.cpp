@@ -30,3 +30,8 @@ HERO* GameManager::KnightInf()
 {
 	return knight;
 }
+
+BOSS* GameManager::BossInf()
+{
+	return boss1;
+}

@@ -17,6 +17,7 @@
 #include <memory.h>
 #include <math.h>
 #include <tchar.h>
+#include <time.h>
 #pragma comment(lib, "msimg32.lib")
 
 // 여기서 프로그램에 필요한 추가 헤더를 참조합니다.
@@ -25,4 +26,5 @@
 #include "HERO.h"
 #include "BOSS.h"
 #include "GM.h"
+#define UnderPos 700
 extern GameManager Game;

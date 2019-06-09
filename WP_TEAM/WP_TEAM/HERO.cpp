@@ -8,7 +8,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	motion_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
 	show_bit = hero_bit;
 	pos.x = 600;
-	pos.y = 635;
+	pos.y = 535;
 	srcpos.x = srcpos.y = 0;
 	srceffect = effectpos = srcpos;
 	speed = SPEED;
