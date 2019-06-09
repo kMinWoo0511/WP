@@ -5,6 +5,7 @@ class GameManager {
 private:
 	HERO *knight;
 	BOSS *boss1;
+	SBOSS *boss2;
 	HWND hwnd;
 	
 public:

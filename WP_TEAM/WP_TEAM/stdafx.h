@@ -25,6 +25,7 @@
 #include "resource.h"
 #include "HERO.h"
 #include "BOSS.h"
+#include "SBOSS.h"
 #include "GM.h"
 #define UnderPos 700
 extern GameManager Game;
