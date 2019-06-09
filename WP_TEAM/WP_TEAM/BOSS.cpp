@@ -5,7 +5,7 @@ BOSS::BOSS(HINSTANCE hInst, HWND hWnd)
 {
 	boss_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP4));
 	sizeX = 60, sizeY = 60;
-	pos.x = 600, pos.y = 100;
+	pos.x = 500, pos.y = 100;
 	speed = 1;
 	srcpos.x = srcpos.y = 0;
 	imgW = 150, imgH = 125;
@@ -20,13 +20,12 @@ BOSS::~BOSS()
 
 }
 
-void Matrix(MY_PFLOAT OriginPos, float &x, float &y, float theta)
+void Matrix(MY_PFLOAT TargetPos, MY_PFLOAT OriginPos, float &x, float &y, float theta)
 {
-	printf("%f\n", theta);
-	printf("ori: %f %f / theta: %f\n", OriginPos.x, OriginPos.y, theta);
 	float px = x, py = y;
-	px = (x - OriginPos.x) * cos(theta) - (y - OriginPos.y) * sin(theta);
-	py = (x - OriginPos.x) * sin(theta) + (y - OriginPos.y) * cos(theta);
+	px = x * cos(theta) - y * sin(theta);
+	py = x * sin(theta) + y * cos(theta);
+	if (TargetPos.y < OriginPos.y) py *= -1;
 	x = OriginPos.x + px, y = OriginPos.y + py;
 }
 
@@ -89,7 +88,6 @@ void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 	if (hero.left - sizeX <= pos.x && pos.x <= hero.right + sizeX
 		&& hero.top - sizeY <= pos.y && pos.y <= hero.bottom + sizeY)
 	{
-<<<<<<< HEAD
 		if (pos.x < hero.left && pos.y < hero.top
 			&& IsPointIncircle(hero.left, hero.top, pos.x, pos.y));
 		else if (pos.x > hero.right && pos.y < hero.top
@@ -98,17 +96,6 @@ void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 			&& IsPointIncircle(hero.left, hero.bottom, pos.x, pos.y));
 		else if (pos.x > hero.right && pos.y > hero.bottom
 			&& IsPointIncircle(hero.right, hero.bottom, pos.x, pos.y));
-		/*	else
-				printf("p: %f %f c: %f %f", Game.KnightInf()->pos.x, Game.KnightInf()->pos.y, pos.x, pos.y);*/
-=======
-		if (getpos().x < hero.left && getpos().y < hero.top
-			&& !IsPointIncircle(hero.left, hero.top, getpos().x, getpos().y));
-		else if (getpos().x > hero.right && getpos().y < hero.top
-			&& !IsPointIncircle(hero.right, hero.top, getpos().x, getpos().y));
-		else if (getpos().x < hero.left && getpos().y > hero.bottom
-			&& !IsPointIncircle(hero.left, hero.bottom, getpos().x, getpos().y));
-		else if (getpos().x > hero.right && getpos().y > hero.bottom
-			&& !IsPointIncircle(hero.right, hero.bottom, getpos().x, getpos().y));
 		else
 		{
 			//몬스터와 충돌
@@ -118,8 +105,8 @@ void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 				printf("%d\n", Game.KnightInf()->getHP());
 			}
 		}
-			/*printf("p: %f %f c: %f %f", Game.KnightInf()->getpos().x, Game.KnightInf()->getpos().y, pos.x, pos.y);*/
->>>>>>> 046195ca09d49a31106b47f2a0bf798d9d93cd37
+		/*	else
+				printf("p: %f %f c: %f %f", Game.KnightInf()->pos.x, Game.KnightInf()->pos.y, pos.x, pos.y);*/
 	}
 	if (IsPointIncircle(targetpos.x, targetpos.y, pos.x, pos.y)) {
 		Arrive = true;
@@ -139,24 +126,23 @@ void BOSS::move(float dt)
 	static MY_PFLOAT targetpos = Game.KnightInf()->getpos(), originpos = Game.BossInf()->getpos();
 	static float thetaVal = 0;
 	static float v_ = 0, theta = 0, Countdt = 0, distance = 0;
-	int g_y = 250;
+	int g_y = 200;
 	CrashCheck(Crash, Arrive, targetpos);
-	Countdt += dt;
+	Countdt += 2 * dt;
 	if (Crash || Arrive) {
 		float nWid, nHei;
 		targetpos = Game.KnightInf()->getpos();
 		originpos = Game.BossInf()->getpos();
-		printf("bosspos: %f %f\n", pos.x, pos.y);
-		printf("knightpos: %f %f\n", Game.KnightInf()->getpos().x, Game.KnightInf()->getpos().y);
 		Crash = false, Arrive = false;
 		nWid = targetpos.x - originpos.x, nHei = targetpos.y - originpos.y;
 		distance = sqrt(pow(nWid, 2) + pow(nHei, 2));
-		printf("%f %f\n",nWid, distance);
 		thetaVal = nWid / distance;
 		Countdt = 0;
 		switch (pattern_N) {
 		case Pattern1:
-			theta = Angle((30 + 5 * (rand() % 8)));
+			theta = 5 * (rand() % 8);
+			printf("theta: %f\n", theta);
+			theta = Angle((30 + theta));
 			v_ = sqrt((distance * g_y) / (2 * sin(theta) * cos(theta)));
 			break;
 		case Pattern2:
@@ -167,12 +153,9 @@ void BOSS::move(float dt)
 			break;
 		}
 	}
-	pos.x = originpos.x + v_ * cos(theta) * Countdt;
-	pos.y = originpos.y + v_ * sin(theta) * Countdt - 0.5 * g_y * (Countdt * Countdt);
-	printf("targetpos: %f %f\n", targetpos.x, targetpos.y);
-	Matrix(originpos, pos.x, pos.y, (acos(thetaVal))); // 선형 변환!
-	printf("bosspos: %f %f\n", pos.x, pos.y);
-	printf("1\n");
+	pos.x = v_ * cos(theta) * Countdt;
+	pos.y = v_ * sin(theta) * Countdt - 0.5 * g_y * (Countdt * Countdt);
+	Matrix(targetpos, originpos, pos.x, pos.y, (acos(thetaVal))); // 선형 변환!
 }
 
 void BOSS::animation(float dt)

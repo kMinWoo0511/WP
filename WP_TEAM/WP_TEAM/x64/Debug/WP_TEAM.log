@@ -1,75 +1,26 @@
 ﻿  BOSS.cpp
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(28): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(29): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(26): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(27): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(46): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(47): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(48): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(49): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(50): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(64): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(66): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(88): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(63): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(65): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(87): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(86): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(85): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(93): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(95): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(97): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(99): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(103): error C2039: 'gethit': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(104): error C2039: 'setHP': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(104): error C2039: 'getHP': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(105): error C2039: 'sethitcheck': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(106): error C2039: 'getHP': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(106): warning C4473: 'printf': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(106): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 1개 필요하지만 0개가 제공되었습니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(106): note: 누락된 variadic 인수 1이(가) 서식 문자열 '%d'에 필요합니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(141): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(147): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(148): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(158): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(159): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(161): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(194): warning C4244: 'return': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  HERO.cpp
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(21): error C2065: 'HP': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(30): error C2065: 'hit_check': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(31): error C2065: 'hit_cooltime': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(57): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(58): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(59): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(60): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(76): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(80): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(173): error C2065: 'hit_check': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(175): error C2065: 'hit_cooltime': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(176): error C2065: 'hit_cooltime': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(176): error C2065: 'HIT_COOLTIME': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(178): error C2065: 'hit_cooltime': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(179): error C2065: 'hit_check': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(185): error C2065: 'HP': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(346): error C2065: 'hit_check': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(381): error C2065: 'hit_check': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(413): error C2039: 'getHP': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(414): error C2270: 'getHP': 비멤버 함수에 한정자를 사용할 수 없습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(415): error C2065: 'HP': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(418): error C2039: 'gethit': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(419): error C2270: 'gethit': 비멤버 함수에 한정자를 사용할 수 없습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(420): error C2065: 'hit_check': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(423): error C2039: 'setHP': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(425): error C2065: 'HP': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(428): error C2039: 'sethitcheck': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(430): error C2065: 'hit_check': 선언되지 않은 식별자입니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(433): error C2039: 'getstate': 'HERO'의 멤버가 아닙니다.
-  c:\users\user\desktop\wp_team\wp_team\wp_team\hero.h(34): note: 'HERO' 선언을 참조하십시오.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(434): error C2270: 'getstate': 비멤버 함수에 한정자를 사용할 수 없습니다.
-c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(435): error C2065: 'state': 선언되지 않은 식별자입니다.
-  코드를 생성하고 있습니다...
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(84): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(92): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(94): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(96): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(98): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(138): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(143): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(145): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(146): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(156): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(157): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(158): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\wp_team\wp_team\wp_team\boss.cpp(189): warning C4244: 'return': 'const float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  WP_TEAM.vcxproj -> C:\Users\user\Desktop\WP_TEAM\WP_TEAM\x64\Debug\WP_TEAM.exe
