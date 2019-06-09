@@ -3,11 +3,14 @@
 SBOSS::SBOSS(HINSTANCE hInst, HWND hWnd)
 {
 	bossbitmap = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP6));
-	pos.x = 600;
-	pos.y = 600;
+	pos.x = 1000;
+	pos.y = 685;
 	state = prev_state = BIDLE;
 	ani_frame = framedeleay = Pattern = Patterndeleay = 0;
 	direction = BLEFT;
+	speed = 300;
+	HP = 30;
+	randomPatternTime = rand() % 7;
 	update_hitbox();
 }
 
@@ -18,6 +21,7 @@ SBOSS::~SBOSS()
 
 void SBOSS::update(float dt)
 {
+	update_state(dt);
 	move(dt);
 	animation(dt);
 }
@@ -35,7 +39,7 @@ void SBOSS::draw(HDC memdc, HWND hWnd)
 	boss_pos.y = pos.y - 150;
 	update_hitbox();
 
-	FillRect(memdc, &hitbox, (HBRUSH)GetStockObject(WHITE_BRUSH));
+	FillRect(memdc, &hitbox, (HBRUSH)GetStockObject(GRAY_BRUSH));
 
 	TransparentBlt(memdc, boss_pos.x, boss_pos.y, 250, 250, imagedc, srcpos.x + 300 * ani_frame, srcpos.y, 300, 300, RGB(255, 255, 255));
 
@@ -45,7 +49,21 @@ void SBOSS::draw(HDC memdc, HWND hWnd)
 
 void SBOSS::move(float dt)
 {
-
+	switch (state)
+	{
+	case BIDLE:
+		break;
+	case BWALK:
+		break;
+	case BATTACK:
+		break;
+	case BWARP:
+		break;
+	case BDROPATTACK:
+		break;
+	case BDIE:
+		break;
+	}
 }
 
 void SBOSS::animation(float dt)
@@ -109,6 +127,18 @@ void SBOSS::animation(float dt)
 	}
 }
 
+void SBOSS::update_state(float dt)
+{
+	Patterndeleay += dt;
+
+	if (Patterndeleay >= 1)
+	{
+		randomPatternTime = rand() % 10;
+		Patterndeleay = 0;
+		int temp = rand() % 5;
+	}
+}
+
 MY_PFLOAT SBOSS::getpos() const
 {
 	return pos;
@@ -125,6 +155,36 @@ void SBOSS::update_hitbox()
 {
 	hitbox.left = pos.x - 125;
 	hitbox.top = pos.y - 125;
-	hitbox.right = pos.x + 100;
+	hitbox.right = pos.x + 60;
 	hitbox.bottom = pos.y + 100;
+}
+
+int SBOSS::getaniframe() const
+{
+	return ani_frame;
+}
+
+int SBOSS::getstate() const
+{
+	return state;
+}
+
+int SBOSS::gethp() const
+{
+	return HP;
+}
+
+void SBOSS::sethp(int hp)
+{
+	HP = hp;
+}
+
+void SBOSS::hitdamgetohp(int damage)
+{
+	HP -= damage;
+}
+
+RECT SBOSS::gethitbox() const
+{
+	return hitbox;
 }

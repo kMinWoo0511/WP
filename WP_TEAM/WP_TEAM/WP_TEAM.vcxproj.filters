@@ -87,5 +87,11 @@
     <Image Include="Sprite\boss3.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Sprite\Map_2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\Map_3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

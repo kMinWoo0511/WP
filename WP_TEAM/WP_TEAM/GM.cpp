@@ -14,6 +14,10 @@ void GameManager::Game_init(HINSTANCE hInst, HWND hWnd)
 	knight = new HERO(hInst, hwnd);
 	boss1 = new BOSS(hInst, hwnd);
 	boss2 = new SBOSS(hInst, hwnd);
+	map1 = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP7));
+	map2 = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP8));
+	showMap = map1;
+	bosstype = 2;
 }
 
 void GameManager::GameUpdate(float dt)
@@ -25,6 +29,7 @@ void GameManager::GameUpdate(float dt)
 
 void GameManager::GameDraw(HDC hdc, HWND hWnd)
 {
+	MapDraw(hdc);
 	knight->draw(hdc, hwnd);
 	//boss1->draw(hdc, hwnd);
 	boss2->draw(hdc,hwnd);
@@ -38,4 +43,25 @@ HERO* GameManager::KnightInf()
 BOSS* GameManager::BossInf()
 {
 	return boss1;
+}
+
+SBOSS *GameManager::Boss2inf()
+{
+	return boss2;
+}
+
+void GameManager::MapDraw(HDC memdc)
+{
+	HDC imagedc = CreateCompatibleDC(memdc);
+	HBITMAP oldbit = (HBITMAP)SelectObject(imagedc, showMap);
+
+	StretchBlt(memdc, 0, 0, 1500, 900, imagedc, 0, 0, 1440, 810, SRCCOPY);
+
+	SelectObject(imagedc, oldbit);
+	DeleteObject(imagedc);
+}
+
+int GameManager::getbosstype() const
+{
+	return bosstype;
 }

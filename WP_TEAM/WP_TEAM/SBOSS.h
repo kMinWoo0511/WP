@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#define SPEED 300
 
 enum {
 	BIDLE,
@@ -29,8 +30,11 @@ private:
 	int state, prev_state;
 	int direction;
 	int Pattern;
+	int HP;
+	float randomPatternTime;
 	float framedeleay;
 	float Patterndeleay;
+	float speed;
 	
 public:
 	SBOSS(HINSTANCE, HWND);
@@ -42,4 +46,11 @@ public:
 	POINT makepos(int, int);
 	void update_hitbox();
 	void move(float);
+	void update_state(float);
+	int getaniframe() const;
+	int getstate() const;
+	int gethp() const;
+	void sethp(int);
+	void hitdamgetohp(int);
+	RECT gethitbox() const;
 };

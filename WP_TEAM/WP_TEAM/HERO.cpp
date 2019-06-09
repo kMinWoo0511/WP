@@ -8,7 +8,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	motion_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
 	show_bit = hero_bit;
 	pos.x = 600;
-	pos.y = 640;
+	pos.y = 685;
 	Heropos = {0,0};
 	srcpos.x = srcpos.y = 0;
 	srceffect = effectpos = srcpos;
@@ -21,7 +21,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	state = IDLE;
 	HP = 5;
 	//MoveStop = false;
-	attack = false;
+	attack = attack_hit_check =false;
 	jumpattack_check = false;
 	attack_direction = 0;
 	direction = RIGHT;
@@ -33,6 +33,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	jumpkeydeleay = 0;
 	doublejumpcount = 0;
 	attackdeleay = dash_cooltime = 5;
+	damage = DAMAGE;
 	update_hitbox();
 }
 
@@ -49,16 +50,17 @@ MY_PFLOAT HERO::getpos() const
 
 void HERO::update(float dt)
 {
+	collision();
 	animation(dt);
 	move(dt);
 }
 
 void HERO::update_hitbox()
 {
-	hitbox.left = pos.x - 25;
-	hitbox.top = pos.y - 45;
-	hitbox.right = pos.x + 25;
-	hitbox.bottom = pos.y + 45;
+	hitbox.left		= Heropos.x + 35;
+	hitbox.top		= Heropos.y + 45;
+	hitbox.right	= Heropos.x + imgW - 24;
+	hitbox.bottom	= Heropos.y + imgH - 12;
 }
 
 void HERO::draw(HDC memdc,HWND hWnd)
@@ -68,17 +70,21 @@ void HERO::draw(HDC memdc,HWND hWnd)
 	oldbit = (HBITMAP)SelectObject(imagedc, show_bit);
 	RECT temp;
 	GetClientRect(hWnd, &temp);
-	FillRect(memdc, &temp, (HBRUSH)GetStockObject(WHITE_BRUSH));
-
+	//FillRect(memdc, &temp, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
 	MY_PFLOAT hero_pos = this->getpos();
 	hero_pos.x -= (imgW+srcw) / 2;
 	hero_pos.y -= jump_z + (imgH+srch) / 2;
 	setHeropos(hero_pos.x, hero_pos.y);
+	update_hitbox();
+	FillRect(memdc, &hitbox, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
 	TransparentBlt(memdc, hero_pos.x, hero_pos.y, (imgW+srcw), (imgH+srch), imagedc, srcpos.x + (imgW+srcw) * ani_frame, srcpos.y, (imgW+srcw), (imgH+srch), RGB(250, 247, 247));
+
 	if (attack)
 	{
+		FillRect(memdc, &attackhitbox, (HBRUSH)GetStockObject(GRAY_BRUSH));
+
 		TransparentBlt(memdc, hero_pos.x + effectpos.x, hero_pos.y + effectpos.y, 150, 190, imagedc, srceffect.x + 205 * effect_frame, srceffect.y, 200, 190, RGB(255, 255, 255));
 	}
 
@@ -91,6 +97,10 @@ void HERO::move(float dt)
 {
 	float dt_speed = speed * dt;
 	
+	if (hitbox.left <= 0) pos.x += dt_speed;
+	if (hitbox.right >= 1500) pos.x -= dt_speed;
+
+
 	if (state != JUMP && state != DROP && state != ATTACK && state != DASH) prev_state = state = IDLE;
 
 	if (KEY_DOWN(VK_UP))
@@ -314,7 +324,7 @@ void HERO::animation(float dt)
 				effectpos = makepos(180, 0);
 				break;
 			}
-			if (framedeleay >= 0.07f)
+			if (framedeleay >= 0.04f)
 			{
 				framedeleay = 0;
 				ani_frame++;
@@ -360,7 +370,7 @@ void HERO::animation(float dt)
 				jump_z -= jump_power * dt;
 				jump_power += GRAVITY * dt;
 			}
-*/
+			*/
 			if (direction == RIGHT)
 			{
 				pos.x += dashspeed * dt;
@@ -399,6 +409,56 @@ void HERO::animation(float dt)
 		}
 		
 		break;
+	}
+}
+
+void HERO::collision()
+{
+	if (state != ATTACK && ani_frame != 2)
+	{
+		attackhitbox = { -30,-30,-30,-30 };
+		attack_hit_check = false;
+	}
+
+	if (state == ATTACK && ani_frame == 2)
+	{
+		switch (attack_direction)
+		{
+		case TOP:
+			attackhitbox.left	= Heropos.x + 70;
+			attackhitbox.top	= Heropos.y - 150;
+			attackhitbox.right	= Heropos.x + 160;
+			attackhitbox.bottom = Heropos.y - 30;
+			break;
+		case BOTTOM:
+			attackhitbox.left	= Heropos.x + 90;
+			attackhitbox.top	= Heropos.y + 180;
+			attackhitbox.right	= Heropos.x + 180;
+			attackhitbox.bottom = Heropos.y + 280;
+			break;
+		case LEFT:
+			attackhitbox.left	= Heropos.x - 100;
+			attackhitbox.top	= Heropos.y + 80;
+			attackhitbox.right	= Heropos.x + 10;
+			attackhitbox.bottom = Heropos.y + 130;
+			break;
+		case RIGHT:
+			attackhitbox.left	= Heropos.x + 200;
+			attackhitbox.top	= Heropos.y + 70;
+			attackhitbox.right	= Heropos.x + 310;
+			attackhitbox.bottom = Heropos.y + 130;
+			break;
+		}
+	}
+
+	RECT temp;
+	if (Game.getbosstype() == 2)
+	{
+		if (IntersectRect(&temp, &attackhitbox, &Game.Boss2inf()->gethitbox()) && !attack_hit_check)
+		{
+			attack_hit_check = true;
+			Game.Boss2inf()->hitdamgetohp(damage);
+		}
 	}
 }
 
@@ -444,4 +504,13 @@ void HERO::setHeropos(float x, float y)
 {
 	Heropos.x = x;
 	Heropos.y = y;
+}
+
+RECT HERO::gethitbox() const
+{
+	return hitbox;
+}
+
+RECT HERO::getattackhitbox() const {
+	return attackhitbox;
 }
