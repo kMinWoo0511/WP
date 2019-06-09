@@ -81,10 +81,10 @@ BOOL BOSS::IsPointIncircle(float x, float y, float cx, float cy)
 void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 {
 	RECT hero;
-	SetRect(&hero, Game.KnightInf()->getpos().x - 30,
-		Game.KnightInf()->getpos().y - 65,
-		Game.KnightInf()->getpos().x + 30,
-		Game.KnightInf()->getpos().y + 65);
+	SetRect(&hero, Game.KnightInf()->getHeropos().x - 30,
+		Game.KnightInf()->getHeropos().y - 65,
+		Game.KnightInf()->getHeropos().x + 30,
+		Game.KnightInf()->getHeropos().y + 65);
 	if (hero.left - sizeX <= pos.x && pos.x <= hero.right + sizeX
 		&& hero.top - sizeY <= pos.y && pos.y <= hero.bottom + sizeY)
 	{
@@ -123,7 +123,7 @@ void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 void BOSS::move(float dt)
 {
 	static BOOL Crash = false, Arrive = true;
-	static MY_PFLOAT targetpos = Game.KnightInf()->getpos(), originpos = Game.BossInf()->getpos();
+	static MY_PFLOAT targetpos = Game.KnightInf()->getHeropos(), originpos = Game.BossInf()->getpos();
 	static float thetaVal = 0;
 	static float v_ = 0, theta = 0, Countdt = 0, distance = 0;
 	int g_y = 200;
@@ -131,7 +131,7 @@ void BOSS::move(float dt)
 	Countdt += 2 * dt;
 	if (Crash || Arrive) {
 		float nWid, nHei;
-		targetpos = Game.KnightInf()->getpos();
+		targetpos = Game.KnightInf()->getHeropos();
 		originpos = Game.BossInf()->getpos();
 		Crash = false, Arrive = false;
 		nWid = targetpos.x - originpos.x, nHei = targetpos.y - originpos.y;
