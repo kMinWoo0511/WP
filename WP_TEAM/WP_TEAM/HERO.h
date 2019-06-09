@@ -6,13 +6,15 @@
 #define GRAVITY 1500
 #define ATTACK_COOLTIME 0.8
 #define SPEED 300
-#define DASHSPEED 500
-#define DASH_COOLTIME 3
+#define DASHSPEED 800
+#define DASH_COOLTIME 1.6
+#define HIT_COOLTIME 1.5
 
 // 히어로 정보
 // 공격쿨타임 0.8초
 // 대쉬스킬 쿨타임 3초
 // 2단점프 가능
+// 공격맞은후 무적타임 1.5
 enum {
 	IDLE,
 	RIGHT,
@@ -45,8 +47,11 @@ private:
 	int attack_direction;
 	int doublejumpcount;
 	int srcw,srch;
+	int HP;
 	short MoveStop;
 	bool attack,jumpattack_check,dash;
+	bool hit_check;
+	float hit_cooltime;
 	float framedeleay,jumpkeydeleay;
 	float speed, dashspeed;
 	float jump_z;
@@ -64,4 +69,9 @@ public:
 	void move(float);
 	void animation(float);
 	POINT makepos(int, int);
+	int getHP() const;
+	void setHP(int);
+	bool gethit() const;
+	void sethitcheck(bool);
+	int getstate() const;
 };
