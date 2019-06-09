@@ -7,8 +7,14 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	attack_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP2));
 	motion_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
 	show_bit = hero_bit;
+<<<<<<< HEAD
 	pos.x = 500;
 	pos.y = 500;
+=======
+	pos.x = 600;
+	pos.y = 640;
+	Heropos = {0,0};
+>>>>>>> 42a8ad627204636f18d7d7bae95c312e7b3b2f18
 	srcpos.x = srcpos.y = 0;
 	srceffect = effectpos = srcpos;
 	speed = SPEED;
@@ -71,10 +77,11 @@ void HERO::draw(HDC memdc,HWND hWnd)
 
 
 	MY_PFLOAT hero_pos = this->getpos();
-	hero_pos.x -= (imgW+srcw) / 2 + 0;
+	hero_pos.x -= (imgW+srcw) / 2;
 	hero_pos.y -= jump_z + (imgH+srch) / 2;
-	TransparentBlt(memdc, hero_pos.x, hero_pos.y, (imgW+srcw), (imgH+srch), imagedc, srcpos.x + (imgW+srcw) * ani_frame, srcpos.y, (imgW+srcw), (imgH+srch), RGB(250, 247, 247));
+	setHeropos(hero_pos.x, hero_pos.y);
 
+	TransparentBlt(memdc, hero_pos.x, hero_pos.y, (imgW+srcw), (imgH+srch), imagedc, srcpos.x + (imgW+srcw) * ani_frame, srcpos.y, (imgW+srcw), (imgH+srch), RGB(250, 247, 247));
 	if (attack)
 	{
 		TransparentBlt(memdc, hero_pos.x + effectpos.x, hero_pos.y + effectpos.y, 150, 190, imagedc, srceffect.x + 205 * effect_frame, srceffect.y, 200, 190, RGB(255, 255, 255));
@@ -133,8 +140,6 @@ void HERO::move(float dt)
 		
 	}
 	if (KEY_DOWN('Z')) {
-		
-		if(doublejumpcount == 0) jumpkeydeleay += dt;
 		if (doublejumpcount < 2 && state != ATTACK && prev_state != ATTACK && state != DASH && prev_state != DASH) state = JUMP;
 	}
 
@@ -219,10 +224,10 @@ void HERO::animation(float dt)
 		srcw = srch = 0;
 		srcpos = makepos(direction == RIGHT ? 0 : 600, 450);
 		framedeleay += dt;
+
 		if (framedeleay < 0.1f)
 		{
-			
-			jump_power = JUMPPOWER;
+			jump_power += (JUMPPOWER - jump_power);
 			ani_frame = 0;
 			break;
 		}
@@ -254,6 +259,7 @@ void HERO::animation(float dt)
 		if (jump_z <= 0) //ÂøÁö
 		{
 			prev_state = JUMP;
+			jump_power = 0;
 			jumpkeydeleay = 0;
 			doublejumpcount = 0;
 			ani_frame = 0;
@@ -275,15 +281,14 @@ void HERO::animation(float dt)
 			if (prev_state == JUMP)
 			{
 				jumpattack_check = true;
-				jump_z += jump_power * dt;
-				jump_power -= GRAVITY * dt;
-			
+				///jump_z += jump_power * dt;
+				//jump_power -= GRAVITY * dt;
 			}
 			else if (prev_state == DROP)
 			{
 				jumpattack_check = true;
-				jump_z -= jump_power * dt;
-				jump_power += GRAVITY * dt;
+				//jump_z -= jump_power * dt;
+				//jump_power += GRAVITY * dt;
 			}
 
 			show_bit = attack_bit;
@@ -433,4 +438,15 @@ void HERO::sethitcheck(bool hitcheck)
 int HERO::getstate() const
 {
 	return state;
+}
+
+MY_PFLOAT HERO::getHeropos() const
+{
+	return Heropos;
+}
+
+void HERO::setHeropos(float x, float y)
+{
+	Heropos.x = x;
+	Heropos.y = y;
 }

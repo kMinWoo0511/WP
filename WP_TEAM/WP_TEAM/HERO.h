@@ -37,7 +37,7 @@ class HERO
 {
 private:
 	HDC memdc,imagedc;
-	MY_PFLOAT pos;
+	MY_PFLOAT pos,Heropos;
 	RECT hitbox;
 	HBITMAP hero_bit,show_bit,attack_bit,motion_bit;
 	POINT srcpos,effectpos,srceffect;
@@ -74,4 +74,6 @@ public:
 	bool gethit() const;
 	void sethitcheck(bool);
 	int getstate() const;
+	MY_PFLOAT getHeropos() const;
+	void setHeropos(float,float);
 };
