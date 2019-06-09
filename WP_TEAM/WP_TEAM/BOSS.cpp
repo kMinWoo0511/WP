@@ -93,7 +93,7 @@ void BOSS::CrashCheck()
 			if (Game.KnightInf()->gethit()) {
 				Game.KnightInf()->setHP(Game.KnightInf()->getHP() - 1);
 				Game.KnightInf()->sethitcheck(false);
-				printf("%d\n", Game.KnightInf()->getHP());
+				//printf("%d\n", Game.KnightInf()->getHP());
 			}
 		}
 			/*printf("p: %f %f c: %f %f", Game.KnightInf()->getpos().x, Game.KnightInf()->getpos().y, pos.x, pos.y);*/
