@@ -36,6 +36,9 @@
     <ClInclude Include="BOSS.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SBOSS.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +54,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BOSS.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SBOSS.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -76,6 +82,15 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Sprite\Motion.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\boss3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\Map_2.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\Map_3.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

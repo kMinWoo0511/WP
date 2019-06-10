@@ -9,6 +9,7 @@
 #define DASHSPEED 800
 #define DASH_COOLTIME 1.6
 #define HIT_COOLTIME 1.5
+#define DAMAGE 1
 
 // 히어로 정보
 // 공격쿨타임 0.8초
@@ -38,7 +39,7 @@ class HERO
 private:
 	HDC memdc,imagedc;
 	MY_PFLOAT pos,Heropos;
-	RECT hitbox;
+	RECT hitbox,attackhitbox;
 	HBITMAP hero_bit,show_bit,attack_bit,motion_bit;
 	POINT srcpos,effectpos,srceffect;
 	int ani_frame,direction,state,imgW,imgH;
@@ -47,10 +48,11 @@ private:
 	int attack_direction;
 	int doublejumpcount;
 	int srcw,srch;
-	int HP;
+	int HP,damage;
 	short MoveStop;
 	bool attack,jumpattack_check,dash;
 	bool hit_check;
+	bool attack_hit_check;
 	float hit_cooltime;
 	float framedeleay,jumpkeydeleay;
 	float speed, dashspeed;
@@ -76,4 +78,7 @@ public:
 	int getstate() const;
 	MY_PFLOAT getHeropos() const;
 	void setHeropos(float,float);
+	RECT gethitbox() const;
+	RECT getattackhitbox() const;
+	void collision();
 };
