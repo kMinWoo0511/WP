@@ -72,9 +72,6 @@
     <Image Include="WP_TEAM.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Sprite\Spin.bmp">
-      <Filter>리소스 파일</Filter>
-    </Image>
     <Image Include="Sprite\Move.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
@@ -91,6 +88,12 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Sprite\Map_3.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\test.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Sprite\Boss1.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

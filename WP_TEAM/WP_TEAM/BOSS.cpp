@@ -81,7 +81,8 @@ BOOL BOSS::IsPointIncircle(float x, float y, float cx, float cy)
 
 void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 {
-	RECT hero;
+	RECT hero, rect;
+	GetClientRect(Game.gethWnd(), &rect);
 	SetRect(&hero, Game.KnightInf()->getHeropos().x - 30,
 		Game.KnightInf()->getHeropos().y - 65,
 		Game.KnightInf()->getHeropos().x + 30,
@@ -113,10 +114,10 @@ void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 		Arrive = true;
 		printf("inpointer: pos.x: %f pos.y: %f\n", pos.x, pos.y);
 	}
-	if (0 >= pos.x - sizeX) Crash = LEFT;
-	if (1400 <= pos.x + sizeX) Crash = RIGHT;
-	if (0 >= pos.y - sizeY) Crash = TOP;
-	if (900 <= pos.y + sizeY) Crash = BOTTOM;
+	if (rect.left >= pos.x - sizeX) Crash = LEFT;
+	if (rect.right <= pos.x + sizeX) Crash = RIGHT;
+	if (rect.top >= pos.y - sizeY) Crash = TOP;
+	if (rect.bottom - 100 <= pos.y + sizeY) Crash = BOTTOM;
 	printf("%d\n", Crash);
 	//if (UnderPos < pos.y + sizeY) {
 	//	printf("A%f\n", pos.y + sizeY);
@@ -151,8 +152,8 @@ void BOSS::move(float dt)
 			v_ = sqrt((distance * g_y) / (2 * sin(theta) * cos(theta)));
 			break;
 		case Pattern2:
-			if (Crash) pos.x = 500, pos.y = 100, Crash = false;
-			theta = Angle((rand() % 30 + 30)) * PI / 2 * (rand() % 4 + 1);
+			/*if (Crash) { pos.x = 500, pos.y = 100, Crash = false; printf("Crash!\n"); }*/
+			theta = Angle((rand() % 30 + 30)) + PI / 2 * (rand() % 4 + 1);
 			printf("%f\n", theta);
 			dirx = cos(theta), diry = sin(theta);
 			break;
@@ -177,6 +178,7 @@ void BOSS::move(float dt)
 		break;
 	case Pattern2:
 		if (Crash) {
+			int transAngle, transMax;
 			switch (Crash) {
 			case 1: case 2:
 				theta = PI - theta;
