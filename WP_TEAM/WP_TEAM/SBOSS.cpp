@@ -5,11 +5,11 @@ SBOSS::SBOSS(HINSTANCE hInst, HWND hWnd)
 	bossbitmap = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP6));
 	pos.x = 1000;
 	pos.y = 685;
-	state = prev_state = BWARP;
+	state = prev_state = BIDLE;
 	ani_frame = framedeleay = Pattern = Patterndeleay = 0;
-	direction = BLEFT;
+	direction = BRIGHT;
 	HP = 30;
-	randomPatternTime = rand() % 7;
+	randomPatternTime = rand() % 3;
 	attackspeed = ATTACKSPEED;
 	speed = BOSSSPEED;
 	ani_frame = framedeleay = warpdeleay = 0;
@@ -52,13 +52,14 @@ void SBOSS::draw(HDC memdc, HWND hWnd)
 
 void SBOSS::move(float dt)
 {
-	float dt_speed = 0;
+	float dt_speed = speed * dt;
+	if (hitbox.left <= 0)		pos.x -= dt_speed;
+	if (hitbox.right >= 1500)	pos.x += dt_speed;
 	switch (state)
 	{
 	case BIDLE:
 		break;
 	case BWALK:
-		dt_speed = speed * dt;
 		if (direction == BLEFT) {
 			pos.x -= dt_speed;
 			if (hitbox.left <= 0) direction = BRIGHT;
@@ -69,7 +70,6 @@ void SBOSS::move(float dt)
 		}
 		break;
 	case BATTACK:
-		dt_speed = attackspeed * dt;
 		if (direction == BLEFT)		 pos.x	-= dt_speed;
 		if (direction == BRIGHT)	 pos.x	+= dt_speed;
 		break;
@@ -83,18 +83,18 @@ void SBOSS::move(float dt)
 				warpdeleay = 0;
 				warp = false;
 				pos.x = Game.KnightInf()->getHeropos().x + 100;
-				pos.y = Game.KnightInf()->getHeropos().y - 300;
+				pos.y = Game.KnightInf()->getHeropos().y - 250;
 				state = BDROPATTACK;
 			}
 		}
 		break;
 	case BDROPATTACK:
-		pos.y += speed * dt;
-		if (pos.y <= 635)
+		pos.y += DROPSPEED * dt;
+		if (pos.y >= 685)
 		{
-			pos.y = 635;
-			direction = rand() % 1 ? BLEFT : BRIGHT;
-			state = rand() % 1;
+			pos.y = 685;
+			direction = rand() % 2 ? BLEFT : BRIGHT;
+			state = rand() % 2;
 		}
 		break;
 	case BDIE:
@@ -139,7 +139,7 @@ void SBOSS::animation(float dt)
 	case BWARP:
 		srcpos = makepos(0, direction == BLEFT ? 1200 : 1500);
 		framedeleay += dt;
-		if (framedeleay >= 0.2f) {
+		if (framedeleay >= 0.15f) {
 			framedeleay = 0;
 			ani_frame++;
 			if (ani_frame >= 4) {
@@ -151,16 +151,18 @@ void SBOSS::animation(float dt)
 	case BDROPATTACK:
 		srcpos = makepos(0, direction == BLEFT ? 2100 : 1800);
 		framedeleay += dt;
-		if (framedeleay >= 0.15f) {
+		if (framedeleay >= 0.18f) {
 			framedeleay = 0;
 			ani_frame++;
-			if (ani_frame >= 3) ani_frame = 0;
+			if (ani_frame >= 4) {
+				ani_frame = 0;
+			}
 		}
 		break;
 	case BDIE:
 		srcpos = makepos(direction == BLEFT ? 0 : 1800, 2400);
 		framedeleay += dt;
-		if (framedeleay >= 0.3f) {
+		if (framedeleay >= 0.27f) {
 			framedeleay = 0;
 			ani_frame++;
 			if (ani_frame >= 4) ani_frame = 0;
@@ -171,15 +173,22 @@ void SBOSS::animation(float dt)
 
 void SBOSS::update_state(float dt)
 {
-	Patterndeleay += dt;
+	if(state == BIDLE || state == BWALK) Patterndeleay += dt;
 
-	if (Patterndeleay >= 1)
+	if (Patterndeleay >= randomPatternTime)
 	{
-		randomPatternTime = rand() % 10;
-		Patterndeleay = 0;
-		ani_frame = 0;
-		framedeleay = 0;
-		int temp = rand() % 5;
+		Patterndeleay = ani_frame = framedeleay = 0;
+		randomPatternTime = rand() % 5 + 3;
+		state = rand() % 2 ? BATTACK : BWARP;
+	}
+}
+
+void SBOSS::collision()
+{
+	RECT temp;
+	if (IntersectRect(&temp, &hitbox, &Game.KnightInf()->gethitbox()))
+	{
+		Game.KnightInf()->setHP(Game.KnightInf()->getHP() - 1);
 	}
 }
 

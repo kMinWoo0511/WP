@@ -177,12 +177,14 @@
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="Sprite\Attack.bmp" />
+    <Image Include="Sprite\Boss1.bmp" />
     <Image Include="Sprite\boss3.bmp" />
+    <Image Include="Sprite\Effect.bmp" />
     <Image Include="Sprite\Map_2.bmp" />
     <Image Include="Sprite\Map_3.bmp" />
     <Image Include="Sprite\Motion.bmp" />
     <Image Include="Sprite\Move.bmp" />
-    <Image Include="Sprite\Spin.bmp" />
+    <Image Include="Sprite\test.bmp" />
     <Image Include="WP_TEAM.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

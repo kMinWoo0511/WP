@@ -4,7 +4,7 @@
 #define KEY_UP(code) ((GetAsyncKeyState(code) & 0x8000 ? false : true))
 #define JUMPPOWER 800
 #define GRAVITY 1500
-#define ATTACK_COOLTIME 0.8
+#define ATTACK_COOLTIME 0.4
 #define SPEED 300
 #define DASHSPEED 800
 #define DASH_COOLTIME 1.6

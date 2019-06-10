@@ -16,14 +16,18 @@ void GameManager::Game_init(HINSTANCE hInst, HWND hWnd)
 	boss2 = new SBOSS(hInst, hwnd);
 	map1 = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP7));
 	map2 = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP8));
-	showMap = map1;
+	map3 = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP9));
+	potal = { 1100, 685 };
+	showMap = map3, SetMap = map1;
 	bosstype = 2;
 }
 
 void GameManager::GameUpdate(float dt)
 { 
 	knight->update(dt);
+	
 	//boss1->update(dt);
+
 	boss2->update(dt);
 }
 
@@ -32,6 +36,7 @@ void GameManager::GameDraw(HDC hdc, HWND hWnd)
 	MapDraw(hdc);
 	knight->draw(hdc, hwnd);
 	//boss1->draw(hdc, hwnd);
+
 	boss2->draw(hdc,hwnd);
 }
 
@@ -59,6 +64,21 @@ void GameManager::MapDraw(HDC memdc)
 
 	SelectObject(imagedc, oldbit);
 	DeleteObject(imagedc);
+}
+
+void GameManager::MapSet()
+{
+	SetMap = map1;
+}
+
+BOOL GameManager::MapChange(float x, float y)
+{
+	if (potal.x - 50 <= x && x <= potal.x && potal.y + 30 >= y
+		&& showMap == map3) {
+		showMap = SetMap;
+		return TRUE;
+	}
+	return FALSE;
 }
 
 int GameManager::getbosstype() const

@@ -107,6 +107,7 @@ void HERO::move(float dt)
 	{
 		if(state != ATTACK)
 		attack_direction = TOP;
+		Game.MapChange(pos.x, pos.y);
 	}
 	if (KEY_DOWN(VK_LEFT))
 	{

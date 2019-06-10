@@ -3,6 +3,8 @@
 #define BOSSSPEED 120
 #define ATTACKSPEED 600
 #define WARPTIME 2
+#define DROPSPEED 550
+
 enum {
 	BIDLE,
 	BWALK,
@@ -56,4 +58,5 @@ public:
 	void sethp(int);
 	void hitdamgetohp(int);
 	RECT gethitbox() const;
+	void collision();
 };

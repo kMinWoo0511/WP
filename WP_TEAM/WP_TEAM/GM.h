@@ -7,7 +7,8 @@ private:
 	BOSS *boss1;
 	SBOSS *boss2;
 	HWND hwnd;
-	HBITMAP map1, map2,showMap;
+	HBITMAP map1, map2, map3, showMap, SetMap;
+	POINT potal;
 	int bosstype;
 	
 public:
@@ -18,6 +19,8 @@ public:
 	void GameUpdate(float);
 	void GameDraw(HDC, HWND);
 	void MapDraw(HDC);
+	void MapSet();
+	BOOL MapChange(float, float);
 	HERO* KnightInf();
 	BOSS* BossInf();
 	SBOSS* Boss2inf();
