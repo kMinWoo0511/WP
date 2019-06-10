@@ -22,4 +22,5 @@ public:
 	BOSS* BossInf();
 	SBOSS* Boss2inf();
 	int getbosstype() const;
+	HWND gethWnd() const;
 };

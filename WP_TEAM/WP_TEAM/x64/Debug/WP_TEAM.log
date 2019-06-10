@@ -1,0 +1,11 @@
+﻿  SBOSS.cpp
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(9): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(9): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(13): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(44): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(138): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(158): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(159): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(160): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\my_pg\windows_p\wp\wp_team\wp_team\sboss.cpp(161): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  WP_TEAM.vcxproj -> D:\My_PG\Windows_P\WP\WP_TEAM\x64\Debug\WP_TEAM.exe

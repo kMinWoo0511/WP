@@ -54,6 +54,8 @@ void SBOSS::move(float dt)
 	case BIDLE:
 		break;
 	case BWALK:
+		if (direction == LEFT) pos.x -= speed * dt;
+		if (direction == RIGHT) pos.y -= speed * dt;
 		break;
 	case BATTACK:
 		break;

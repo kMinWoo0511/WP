@@ -65,3 +65,8 @@ int GameManager::getbosstype() const
 {
 	return bosstype;
 }
+
+HWND GameManager::gethWnd() const
+{
+	return hwnd;
+}
