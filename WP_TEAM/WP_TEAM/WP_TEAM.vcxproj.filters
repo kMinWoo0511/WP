@@ -105,8 +105,11 @@
     <Image Include="Sprite\Effect.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+<<<<<<< HEAD
     <Image Include="Sprite\Logo.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+=======
+>>>>>>> f405937679de559886e23eb9e51f08d80ea2c70c
   </ItemGroup>
 </Project>

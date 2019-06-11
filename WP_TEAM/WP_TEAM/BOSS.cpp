@@ -38,6 +38,7 @@ void BOSS::update(float dt)
 {
 	move(dt);
 	animation(dt);
+	printf("pattern state: %d\n", pattern_state);
 	if (!pattern_state) pattern();
 }
 

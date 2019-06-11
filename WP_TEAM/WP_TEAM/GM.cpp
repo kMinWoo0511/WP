@@ -40,6 +40,7 @@ void GameManager::GameDraw(HDC hdc, HWND hWnd)
 	//boss2->draw(hdc,hwnd);
 	//boss1->draw(hdc, hwnd);
 	knight->draw(hdc, hwnd);
+
 }
 
 HERO* GameManager::KnightInf()
