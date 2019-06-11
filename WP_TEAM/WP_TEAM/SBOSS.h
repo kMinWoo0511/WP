@@ -1,6 +1,9 @@
 #pragma once
 #include "stdafx.h"
-#define SPEED 300
+#define BOSSSPEED 120
+#define ATTACKSPEED 600
+#define WARPTIME 2
+#define DROPSPEED 550
 
 enum {
 	BIDLE,
@@ -11,6 +14,7 @@ enum {
 	BDIE,
 	BRIGHT,
 	BLEFT,
+	
 };
 
 enum {
@@ -34,7 +38,9 @@ private:
 	float randomPatternTime;
 	float framedeleay;
 	float Patterndeleay;
-	float speed;
+	float speed,attackspeed;
+	float warpdeleay;
+	bool warp;
 	
 public:
 	SBOSS(HINSTANCE, HWND);
@@ -53,4 +59,5 @@ public:
 	void sethp(int);
 	void hitdamgetohp(int);
 	RECT gethitbox() const;
+	void collision();
 };

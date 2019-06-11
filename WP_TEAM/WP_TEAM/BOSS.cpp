@@ -11,8 +11,8 @@ BOSS::BOSS(HINSTANCE hInst, HWND hWnd)
 	imgW = 150, imgH = 125;
 	state = WALK;
 	direction = LEFT;	
-	pattern_state = false;
-	pattern_N = 1;
+	pattern_state = true;
+	pattern_N = 2;
 }
 
 BOSS::~BOSS()
@@ -80,7 +80,8 @@ BOOL BOSS::IsPointIncircle(float x, float y, float cx, float cy)
 
 void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 {
-	RECT hero;
+	RECT hero, rect;
+	GetClientRect(Game.gethWnd(), &rect);
 	SetRect(&hero, Game.KnightInf()->getHeropos().x - 30,
 		Game.KnightInf()->getHeropos().y - 65,
 		Game.KnightInf()->getHeropos().x + 30,
@@ -108,10 +109,15 @@ void BOSS::CrashCheck(BOOL &Crash, BOOL& Arrive, MY_PFLOAT targetpos)
 		/*	else
 				printf("p: %f %f c: %f %f", Game.KnightInf()->pos.x, Game.KnightInf()->pos.y, pos.x, pos.y);*/
 	}
-	if (IsPointIncircle(targetpos.x, targetpos.y, pos.x, pos.y)) {
+	if (IsPointIncircle(targetpos.x, targetpos.y, pos.x, pos.y) && pattern_N != 2) {
 		Arrive = true;
 		printf("inpointer: pos.x: %f pos.y: %f\n", pos.x, pos.y);
 	}
+	if (rect.left >= pos.x - sizeX) Crash = LEFT;
+	if (rect.right <= pos.x + sizeX) Crash = RIGHT;
+	if (rect.top >= pos.y - sizeY) Crash = TOP;
+	if (rect.bottom - 100 <= pos.y + sizeY) Crash = BOTTOM;
+	printf("%d\n", Crash);
 	//if (UnderPos < pos.y + sizeY) {
 	//	printf("A%f\n", pos.y + sizeY);
 	//	pos.y =500;
@@ -124,38 +130,79 @@ void BOSS::move(float dt)
 {
 	static BOOL Crash = false, Arrive = true;
 	static MY_PFLOAT targetpos = Game.KnightInf()->getHeropos(), originpos = Game.BossInf()->getpos();
-	static float thetaVal = 0;
-	static float v_ = 0, theta = 0, Countdt = 0, distance = 0;
-	int g_y = 200;
+	static float thetaVal = 0, dirx, diry;
+	static float v_ = 0, theta = 0, Countdt = 0, time = 0, distance = 0;
+	int g_y = 200, g_s = 0;
 	CrashCheck(Crash, Arrive, targetpos);
 	Countdt += 2 * dt;
-	if (Crash || Arrive) {
+	time += dt;
+	if (Arrive) {
 		float nWid, nHei;
 		targetpos = Game.KnightInf()->getHeropos();
 		originpos = Game.BossInf()->getpos();
-		Crash = false, Arrive = false;
+		Arrive = false;
 		nWid = targetpos.x - originpos.x, nHei = targetpos.y - originpos.y;
 		distance = sqrt(pow(nWid, 2) + pow(nHei, 2));
 		thetaVal = nWid / distance;
 		Countdt = 0;
 		switch (pattern_N) {
 		case Pattern1:
-			theta = 5 * (rand() % 8);
-			printf("theta: %f\n", theta);
-			theta = Angle((30 + theta));
+			theta = Angle((30 + 5 * (rand() % 8)));
 			v_ = sqrt((distance * g_y) / (2 * sin(theta) * cos(theta)));
 			break;
 		case Pattern2:
-
+			/*if (Crash) { pos.x = 500, pos.y = 100, Crash = false; printf("Crash!\n"); }*/
+			theta = Angle((rand() % 30 + 30)) + PI / 2 * (rand() % 4 + 1);
+			printf("%f\n", theta);
+			dirx = cos(theta), diry = sin(theta);
 			break;
 		case Pattern3:
 
 			break;
 		}
 	}
-	pos.x = v_ * cos(theta) * Countdt;
-	pos.y = v_ * sin(theta) * Countdt - 0.5 * g_y * (Countdt * Countdt);
-	Matrix(targetpos, originpos, pos.x, pos.y, (acos(thetaVal))); // 선형 변환!
+	printf("pattern: %d\n",pattern_N);
+	switch (pattern_N) {
+	case Pattern1:
+		pos.x = v_ * cos(theta) * Countdt;
+		pos.y = v_ * sin(theta) * Countdt - 0.5 * g_y * (Countdt * Countdt);
+		Matrix(targetpos, originpos, pos.x, pos.y, (acos(thetaVal))); // 선형 변환!
+		if (time >= 8) {
+			printf("pattern1 end\n");
+			pattern_state = false;
+			Arrive = true;
+			time = 0;
+		}
+		printf("Time: %f\n", Countdt);
+		break;
+	case Pattern2:
+		if (Crash) {
+			int transAngle, transMax;
+			switch (Crash) {
+			case 1: case 2:
+				theta = PI - theta;
+				break;
+			case 3: case 4:
+				theta = -theta;
+				break;
+			}
+			Crash = false;
+			dirx = cos(theta), diry = sin(theta);
+		}
+		printf("Time: %f\n", Countdt);
+		if (time >= 8) {
+			pattern_state = false;
+			Arrive = true;
+			printf("pattern init\n");
+			time = 0;
+		}
+		g_s = Countdt;
+		pos.x += dirx * g_s, pos.y += diry * g_s;
+		break;
+	case Pattern3:
+
+		break;
+	}
 }
 
 void BOSS::animation(float dt)
@@ -181,7 +228,9 @@ void BOSS::animation(float dt)
 
 void BOSS::pattern()
 {
-	pattern_N = 1;//rand() % 3 + 1;
+	printf("patterning\n");
+	pattern_state = true;
+	pattern_N = rand() % 2 + 1;
 }
 
 int BOSS::getSpeed() const
