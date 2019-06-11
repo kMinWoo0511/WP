@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BOSS.h" />
+    <ClInclude Include="EFFECT.h" />
     <ClInclude Include="GM.h" />
     <ClInclude Include="HERO.h" />
     <ClInclude Include="Resource.h" />
@@ -160,6 +161,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BOSS.cpp" />
+    <ClCompile Include="EFFECT.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="GM.cpp" />
     <ClCompile Include="HERO.cpp" />
     <ClCompile Include="SBOSS.cpp" />
@@ -179,6 +184,8 @@
     <Image Include="Sprite\Attack.bmp" />
     <Image Include="Sprite\Boss1.bmp" />
     <Image Include="Sprite\boss3.bmp" />
+    <Image Include="Sprite\Effect.bmp" />
+    <Image Include="Sprite\Logo.bmp" />
     <Image Include="Sprite\Map_2.bmp" />
     <Image Include="Sprite\Map_3.bmp" />
     <Image Include="Sprite\Motion.bmp" />

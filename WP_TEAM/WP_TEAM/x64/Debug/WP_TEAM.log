@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  HERO.cpp
 c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(58): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(59): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
@@ -22,3 +23,6 @@ c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(447): warning C4244: '=':
 c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(448): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 c:\users\user\desktop\wp_team\wp_team\wp_team\hero.cpp(449): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   WP_TEAM.vcxproj -> C:\Users\user\Desktop\WP_TEAM\WP_TEAM\x64\Debug\WP_TEAM.exe
+=======
+﻿  WP_TEAM.vcxproj -> D:\My_PG\Windows_P\WP_TEAM\WP_TEAM\x64\Debug\WP_TEAM.exe
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d

@@ -6,6 +6,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	hero_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP5));
 	attack_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP2));
 	motion_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
+	effect_bit = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP10));
 	show_bit = hero_bit;
 	pos.x = 600;
 	pos.y = 685;
@@ -28,7 +29,11 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	dash = false;
 	hit_check = true;
 	hit_cooltime = 0;
+<<<<<<< HEAD
 	jumpkeydeleay = 0, prev_deleay;
+=======
+	prev_deleay =0;
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 	doublejumpcount = 0;
 	attackdeleay = dash_cooltime = 5;
 	damage = DAMAGE;
@@ -48,6 +53,7 @@ MY_PFLOAT HERO::getpos() const
 
 void HERO::update(float dt)
 {
+	effectupdate(dt);
 	collision();
 	animation(dt);
 	move(dt);
@@ -86,7 +92,8 @@ void HERO::draw(HDC memdc,HWND hWnd)
 		TransparentBlt(memdc, hero_pos.x + effectpos.x, hero_pos.y + effectpos.y, 150, 190, imagedc, srceffect.x + 205 * effect_frame, srceffect.y, 200, 190, RGB(255, 255, 255));
 	}
 
-	
+	effectdraw(memdc); //È÷Æ®ÀÌÆåÆ®
+
 	SelectObject(imagedc, oldbit);
 	DeleteObject(imagedc);
 }
@@ -99,18 +106,32 @@ void HERO::move(float dt)
 	if (hitbox.right >= 1500) pos.x -= dt_speed;
 
 
+<<<<<<< HEAD
 	if (state != JUMP && state != DROP && state != ATTACK && state != DASH) {
 		prev_state = state;
 		state = IDLE;
+=======
+	if (state != JUMP && state != DROP && state != ATTACK && state != DASH && state != DIE && state != RESURRECTION) prev_state = state = IDLE;
+
+	if (KEY_DOWN(VK_UP))
+	{
+		if(state != ATTACK)
+		attack_direction = TOP;
+		Game.MapChange(pos.x, pos.y);
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 	}
 
 	if (KEY_DOWN(VK_LEFT))
 	{
+<<<<<<< HEAD
 		if (state != DASH)
+=======
+		if (state != ATTACK && state != DASH && state != DIE && state != RESURRECTION)
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 		{
 			pos.x -= dt_speed;
 		}
-		if (state != JUMP && state != DROP && state != ATTACK && state != DASH)
+		if (state != JUMP && state != DROP && state != ATTACK && state != DASH && state != DIE && state != RESURRECTION)
 		{
 			state = WALK;
 			attack_direction = direction = LEFT;
@@ -119,19 +140,29 @@ void HERO::move(float dt)
 	}
 	if (KEY_DOWN(VK_RIGHT))
 	{
+<<<<<<< HEAD
 		if (state != DASH)
+=======
+		if (state != ATTACK && state != DASH && state != DIE && state != RESURRECTION)
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 		{
 			pos.x += dt_speed;
 		}
 
+<<<<<<< HEAD
 		if (state != JUMP && state != DROP && state != ATTACK && state != DASH)
 		{	
+=======
+		if (state != JUMP && state != DROP && state != ATTACK && state != DASH && state != DIE && state != RESURRECTION) {
+			
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 			state = WALK;
 			attack_direction = direction = RIGHT;
 		}
 		if (state != DASH && state != ATTACK) attack_direction = direction = RIGHT;
 		
 	}
+<<<<<<< HEAD
 	if (KEY_DOWN(VK_UP))
 	{
 		if (state != ATTACK)
@@ -159,6 +190,18 @@ void HERO::move(float dt)
 	}
 	if (KEY_DOWN_1('X')) {
 		if (!attack && attackdeleay >= ATTACK_COOLTIME && state != DASH)
+=======
+	if (KEY_DOWN('Z')) {
+		if (doublejumpcount < 2 && state != ATTACK && prev_state != ATTACK && state != DASH && prev_state != DASH && state != DIE && state != RESURRECTION) {
+			state = JUMP;
+		
+		}
+	}
+
+	if (KEY_DOWN('X'))
+	{	
+		if (!attack && attackdeleay >= ATTACK_COOLTIME && state != DASH && state != DIE && state != RESURRECTION)
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 		{
 			prev_deleay = framedeleay;
 			printf("Attack\n");
@@ -176,7 +219,7 @@ void HERO::move(float dt)
 	}
 
 	if (KEY_DOWN('C')) {
-		if (!dash && dash_cooltime >= DASH_COOLTIME && state != ATTACK) {
+		if (!dash && dash_cooltime >= DASH_COOLTIME && state != ATTACK && state != DIE && state != RESURRECTION) {
 			framedeleay = 0;
 			dash_cooltime = 0;
 			ani_frame = 0;
@@ -206,8 +249,7 @@ void HERO::move(float dt)
 	//HP°¡ 0ÀÏ°æ¿ì
 	if (HP == 0)
 	{
-		//Á×´Â°Í ±¸ÇöÇÏ±â
-		printf("die\n");
+		state = DIE;
 	}
 }
 
@@ -254,6 +296,17 @@ void HERO::animation(float dt)
 		srcpos = makepos(direction == RIGHT ? 0 : 600, 450);
 		framedeleay += dt;
 
+<<<<<<< HEAD
+=======
+		if (framedeleay < 0.1f)
+		{
+			jump_power = JUMPPOWER;
+			//jump_power += (JUMPPOWER - jump_power);
+			ani_frame = 0;
+			break;
+		}
+
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 		jump_z += jump_power * dt;
 		jump_power -= GRAVITY * dt;
 		if (framedeleay > 0.2f) ani_frame = 1;
@@ -276,14 +329,29 @@ void HERO::animation(float dt)
 		framedeleay += dt;
 		if (jump_z <= 0) //ÂøÁö
 		{
+<<<<<<< HEAD
 			prev_state = DROP;
 			jump_power = 0;
 			jumpkeydeleay = 0;
 			ani_frame = 0;
 			framedeleay = 0;
+=======
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 			jump_z = 0;
-			doublejumpcount = 0;
-			state = IDLE;
+			jump_power = 0;
+			prev_state = JUMP;
+			if (framedeleay >= 0.45f) ani_frame = 3;
+			if (framedeleay >= 0.55f) {
+				ani_frame = 4;
+				jumpkeydeleay = 0;
+				doublejumpcount = 0;
+				//ani_frame = 0;
+				framedeleay = 0;
+				doublejumpcount = 0;
+				state = IDLE; 
+			}
+			
+			
 		}
 		else //³«ÇÏÁß
 		{
@@ -295,6 +363,23 @@ void HERO::animation(float dt)
 	case ATTACK:
 		if (attack)
 		{
+<<<<<<< HEAD
+=======
+			if (prev_state == JUMP)
+			{
+				prev_deleay = framedeleay;
+				jumpattack_check = true;
+				///jump_z += jump_power * dt;
+				//jump_power -= GRAVITY * dt;
+			}
+			else if (prev_state == DROP)
+			{
+				jumpattack_check = true;
+				jump_z -= jump_power * dt;
+				jump_power += GRAVITY * dt;
+			}
+
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 			show_bit = attack_bit;
 			srcw = 90;
 			srch = 40;
@@ -351,11 +436,22 @@ void HERO::animation(float dt)
 					ani_frame = 0;
 					effect_frame = 0;
 					attack = false;
+<<<<<<< HEAD
 					framedeleay = prev_deleay;
 					state = prev_state;
 					if (state == JUMP && jump_power <= 0) {
 						prev_state = ATTACK, state = DROP;
 						jump_power = 0;
+=======
+					if (prev_state == JUMP)
+					{
+						framedeleay = prev_deleay;
+						prev_state = ATTACK;
+						state = DROP;
+					}
+					else {
+						state = prev_state;
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 					}
 				}
 				
@@ -407,6 +503,30 @@ void HERO::animation(float dt)
 				}
 			}
 		}
+		break;
+	case DIE:
+		show_bit = motion_bit;
+		srcw = 100;
+		srch = 50;
+		srcpos = makepos(direction == RIGHT ? 0 : 1400, 200);
+		ani_frame = 0;
+		break;
+	case RESURRECTION:
+		show_bit = motion_bit;
+		srcw = 100;
+		srch = 50;
+		srcpos = makepos(direction == RIGHT ? 0 : 1400, 200);
+		framedeleay += dt;
+
+		if (framedeleay >= 0.4f)
+		{
+			framedeleay = 0;
+			ani_frame++;
+			if (ani_frame >= 7) {
+				state = IDLE;
+				framedeleay = 0;
+			}
+		}
 		
 		break;
 	}
@@ -456,6 +576,30 @@ void HERO::collision()
 	{
 		if (IntersectRect(&temp, &attackhitbox, &Game.Boss2inf()->gethitbox()) && !attack_hit_check)
 		{
+			float efx = (temp.right - temp.left) / 2;
+			float efy = (temp.bottom - temp.top) / 2;
+			switch (attack_direction)
+			{
+			case TOP:
+				efx = 0;
+				break;
+			case BOTTOM:
+				efx = 0;
+				break;
+			case LEFT:
+				efy = 0;
+				efx *= -1;
+				break;
+			case RIGHT:
+				efy = 0;
+				break;
+			}
+
+			float hitposx = (attackhitbox.right + attackhitbox.left) / 2 + efx;
+			float hitposy = (attackhitbox.top + attackhitbox.bottom) / 2 + efy;
+				
+			makeeffect(hitposx, hitposy);
+
 			attack_hit_check = true;
 			Game.Boss2inf()->hitdamgetohp(damage);
 		}
@@ -513,4 +657,44 @@ RECT HERO::gethitbox() const
 
 RECT HERO::getattackhitbox() const {
 	return attackhitbox;
+}
+
+void HERO::effectupdate(float dt)
+{
+	std::list<EFFECT*>::iterator iter;
+	for (iter = effectmanager.begin(); iter != effectmanager.end(); iter++)
+	{
+		EFFECT* effect = *iter;
+		if (effect != NULL)
+		{
+			if (effect->getshow() == false)
+			{
+				effectmanager.erase(iter);
+				delete effect;
+				break;
+			}
+
+			effect->update(dt);
+		}
+	}
+}
+
+void HERO::effectdraw(HDC memdc)
+{
+	std::list<EFFECT*>::iterator iter;
+	for (iter = effectmanager.begin(); iter != effectmanager.end(); iter++)
+	{
+		EFFECT* effect = *iter;
+		if (effect != NULL)
+		{
+			effect->draw(memdc);
+		}
+	}
+}
+
+void HERO::makeeffect(float x, float y)
+{
+	EFFECT *effect = new EFFECT(effect_bit);
+	effect->seteffectpos(x, y);
+	effectmanager.push_back(effect);
 }

@@ -39,6 +39,9 @@
     <ClInclude Include="SBOSS.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EFFECT.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -57,6 +60,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SBOSS.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EFFECT.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,5 +102,14 @@
     <Image Include="Sprite\Boss1.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Sprite\Effect.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+<<<<<<< HEAD
+    <Image Include="Sprite\Logo.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+=======
+>>>>>>> f405937679de559886e23eb9e51f08d80ea2c70c
   </ItemGroup>
 </Project>

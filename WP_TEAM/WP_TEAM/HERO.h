@@ -12,7 +12,7 @@
 #define DASH_COOLTIME 1.6
 #define HIT_COOLTIME 1.5
 #define DAMAGE 1
-
+#define SHOWEFFECTTIME 1
 // 히어로 정보
 // 공격쿨타임 0.8초
 // 대쉬스킬 쿨타임 3초
@@ -25,11 +25,13 @@ enum {
 	TOP,
 	BOTTOM,
 	JUMP,
+	DOUBLEJUMP,
 	DROP,
 	ATTACK,
 	WALK,
 	DASH,
 	DIE,
+	RESURRECTION,
 };
 
 typedef struct {
@@ -42,7 +44,7 @@ private:
 	HDC memdc,imagedc;
 	MY_PFLOAT pos,Heropos;
 	RECT hitbox,attackhitbox;
-	HBITMAP hero_bit,show_bit,attack_bit,motion_bit;
+	HBITMAP hero_bit,show_bit,attack_bit,motion_bit,effect_bit;
 	POINT srcpos,effectpos,srceffect;
 	int ani_frame,direction,state,imgW,imgH;
 	int prev_state;
@@ -60,6 +62,12 @@ private:
 	float jump_z;
 	float jump_power;
 	float attackdeleay,dash_cooltime;
+<<<<<<< HEAD
+=======
+	float prev_deleay;
+	std::list<EFFECT*> effectmanager;
+
+>>>>>>> 357b60503cfb503dd81acd0a2897bd4b8cafbf5d
 public:
 	HERO(HINSTANCE, HWND);
 	~HERO();
@@ -81,4 +89,7 @@ public:
 	RECT gethitbox() const;
 	RECT getattackhitbox() const;
 	void collision();
+	void effectupdate(float);
+	void effectdraw(HDC);
+	void makeeffect(float, float);
 };

@@ -7,10 +7,11 @@ private:
 	BOSS *boss1;
 	SBOSS *boss2;
 	HWND hwnd;
-	HBITMAP map1, map2, map3, showMap, SetMap;
+	HBITMAP map1, map2, map3, showMap, SetMap, LOGO;
 	POINT potal;
 	int bosstype;
-	
+	float logox, logoy;
+	float angle;
 public:
 	GameManager();
 	~GameManager();
@@ -26,4 +27,5 @@ public:
 	SBOSS* Boss2inf();
 	int getbosstype() const;
 	HWND gethWnd() const;
+	void movinglogo(float);
 };
