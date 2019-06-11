@@ -1,10 +1,12 @@
 #pragma once
 #include "stdafx.h"
 #define KEY_DOWN(code) ((GetAsyncKeyState(code) & 0x8000 ? true : false))
+#define KEY_DOWN_1(code) ((GetAsyncKeyState(code) & 0x0001 ? true : false))
 #define KEY_UP(code) ((GetAsyncKeyState(code) & 0x8000 ? false : true))
+#define KEY_UP_1(code) ((GetAsyncKeyState(code) & 0x0001 ? false : true))
 #define JUMPPOWER 800
 #define GRAVITY 1500
-#define ATTACK_COOLTIME 0.4
+#define ATTACK_COOLTIME 0.5
 #define SPEED 300
 #define DASHSPEED 800
 #define DASH_COOLTIME 1.6
@@ -49,17 +51,15 @@ private:
 	int doublejumpcount;
 	int srcw,srch;
 	int HP,damage;
-	short MoveStop;
-	bool attack,jumpattack_check,dash;
+	bool attack, dash;
 	bool hit_check;
 	bool attack_hit_check;
 	float hit_cooltime;
-	float framedeleay,jumpkeydeleay;
+	float framedeleay, jumpkeydeleay, prev_deleay;
 	float speed, dashspeed;
 	float jump_z;
 	float jump_power;
 	float attackdeleay,dash_cooltime;
-
 public:
 	HERO(HINSTANCE, HWND);
 	~HERO();

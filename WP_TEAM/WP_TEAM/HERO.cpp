@@ -20,9 +20,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	srcw = srch =0;
 	state = IDLE;
 	HP = 5;
-	//MoveStop = false;
 	attack = attack_hit_check =false;
-	jumpattack_check = false;
 	attack_direction = 0;
 	direction = RIGHT;
 	prev_state = NULL;
@@ -30,7 +28,7 @@ HERO::HERO(HINSTANCE hInst,HWND hWnd)
 	dash = false;
 	hit_check = true;
 	hit_cooltime = 0;
-	jumpkeydeleay = 0;
+	jumpkeydeleay = 0, prev_deleay;
 	doublejumpcount = 0;
 	attackdeleay = dash_cooltime = 5;
 	damage = DAMAGE;
@@ -101,65 +99,78 @@ void HERO::move(float dt)
 	if (hitbox.right >= 1500) pos.x -= dt_speed;
 
 
-	if (state != JUMP && state != DROP && state != ATTACK && state != DASH) prev_state = state = IDLE;
-
-	if (KEY_DOWN(VK_UP))
-	{
-		if(state != ATTACK)
-		attack_direction = TOP;
-		Game.MapChange(pos.x, pos.y);
+	if (state != JUMP && state != DROP && state != ATTACK && state != DASH) {
+		prev_state = state;
+		state = IDLE;
 	}
+
 	if (KEY_DOWN(VK_LEFT))
 	{
-		if (state != ATTACK && state != DASH)
+		if (state != DASH)
 		{
 			pos.x -= dt_speed;
-			attack_direction = LEFT;
 		}
 		if (state != JUMP && state != DROP && state != ATTACK && state != DASH)
 		{
 			state = WALK;
 			attack_direction = direction = LEFT;
 		}
-		if(state != DASH) direction = LEFT;
+		if (state != DASH && state != ATTACK) attack_direction = direction = LEFT;
+	}
+	if (KEY_DOWN(VK_RIGHT))
+	{
+		if (state != DASH)
+		{
+			pos.x += dt_speed;
+		}
+
+		if (state != JUMP && state != DROP && state != ATTACK && state != DASH)
+		{	
+			state = WALK;
+			attack_direction = direction = RIGHT;
+		}
+		if (state != DASH && state != ATTACK) attack_direction = direction = RIGHT;
+		
+	}
+	if (KEY_DOWN(VK_UP))
+	{
+		if (state != ATTACK)
+			attack_direction = TOP;
+		Game.MapChange(pos.x, pos.y);
 	}
 	if (KEY_DOWN(VK_DOWN))
 	{
 		if (state != ATTACK)
-		attack_direction = BOTTOM;
-		
+			attack_direction = BOTTOM;
 	}
-	if (KEY_DOWN(VK_RIGHT))
-	{
-		if (state != ATTACK && state != DASH)
-		{
-			pos.x += dt_speed;
-			attack_direction = RIGHT;
+	if (KEY_DOWN_1('Z')) {
+		if (doublejumpcount >= 2);
+		else {
+			if (state == ATTACK) {
+				prev_state = JUMP;
+				doublejumpcount++;
+			}
+			if (state != DASH) {
+				jump_power += (JUMPPOWER - jump_power);
+				ani_frame = 0;
+			}
+			if (state != ATTACK && state != DASH) state = JUMP, doublejumpcount++;
 		}
-
-		if (state != JUMP && state != DROP && state != ATTACK && state != DASH) {
-			
-			state = WALK;
-			attack_direction = direction = RIGHT;
-		}
-		if (state != DASH) direction = RIGHT;
-		
 	}
-	if (KEY_DOWN('Z')) {
-		if (doublejumpcount < 2 && state != ATTACK && prev_state != ATTACK && state != DASH && prev_state != DASH) state = JUMP;
-	}
-
-	if (KEY_DOWN('X'))
-	{	
+	if (KEY_DOWN_1('X')) {
 		if (!attack && attackdeleay >= ATTACK_COOLTIME && state != DASH)
 		{
+			prev_deleay = framedeleay;
+			printf("Attack\n");
 			attackdeleay = 0;
 			ani_frame = 0;
 			prev_state = state;
 			state = ATTACK;
 			attack = true;
 		}
+		printf("x-> %f\n", prev_deleay);
 	}
+
 	if (attackdeleay <= ATTACK_COOLTIME) {
 		attackdeleay += dt;
 	}
@@ -205,15 +216,27 @@ void HERO::animation(float dt)
 	switch (state)
 	{
 	case IDLE: // ¸ØÃçÀÖ´Â »óÅÂ - ¾Ö´Ï¸ÞÀÌ¼Ç ¸¸µé¾î¾ßÇÔ
-		show_bit = hero_bit;
-		srcw = srch = 0;
-		srcpos = makepos(direction == RIGHT ? 0 : 600, 0);
-		jumpattack_check = false;
-		attack_direction = direction;
-		framedeleay += dt;
-		ani_frame = 0;
+		if (prev_state == WALK) {
+			state = WALK;
+			framedeleay += dt;
+			if (framedeleay > 0.13f) {
+				if (10 <= ani_frame) ani_frame++;
+				else ani_frame = 10;
+				framedeleay = 0;
+			}
+			if (ani_frame >= 12) state = IDLE;
+		}
+		else {
+			show_bit = hero_bit;
+			srcw = srch = 0;
+			srcpos = makepos(direction == RIGHT ? 0 : 600, 0);
+			attack_direction = direction;
+			framedeleay += dt;
+			ani_frame = 0;
+		}
 		break;
 	case WALK:
+		state = WALK;
 		show_bit = hero_bit;
 		srcw = srch = 0;
 		srcpos = makepos(0, direction == RIGHT ? 150 : 300);
@@ -222,7 +245,7 @@ void HERO::animation(float dt)
 		{
 			framedeleay = 0;
 			ani_frame++;
-			if (ani_frame == 9) ani_frame = 5;
+			if (ani_frame >= 9) ani_frame = 5;
 		}
 		break;
 	case JUMP:
@@ -231,23 +254,13 @@ void HERO::animation(float dt)
 		srcpos = makepos(direction == RIGHT ? 0 : 600, 450);
 		framedeleay += dt;
 
-		if (framedeleay < 0.1f)
-		{
-			jump_power += (JUMPPOWER - jump_power);
-			ani_frame = 0;
-			break;
-		}
-
 		jump_z += jump_power * dt;
 		jump_power -= GRAVITY * dt;
-		
 		if (framedeleay > 0.2f) ani_frame = 1;
 		if (framedeleay > 0.4f) ani_frame = 2;
 		if (framedeleay > 0.5f) ani_frame = 3;
-
-		if (jump_power <= 0)
+		if (jump_power < 0)
 		{
-			doublejumpcount++;
 			ani_frame = 0;
 			jump_power = 0;
 			state = DROP;
@@ -261,13 +274,11 @@ void HERO::animation(float dt)
 		jump_z -= jump_power * dt;
 		jump_power += GRAVITY * dt;
 		framedeleay += dt;
-		
 		if (jump_z <= 0) //ÂøÁö
 		{
-			prev_state = JUMP;
+			prev_state = DROP;
 			jump_power = 0;
 			jumpkeydeleay = 0;
-			doublejumpcount = 0;
 			ani_frame = 0;
 			framedeleay = 0;
 			jump_z = 0;
@@ -284,19 +295,6 @@ void HERO::animation(float dt)
 	case ATTACK:
 		if (attack)
 		{
-			if (prev_state == JUMP)
-			{
-				jumpattack_check = true;
-				///jump_z += jump_power * dt;
-				//jump_power -= GRAVITY * dt;
-			}
-			else if (prev_state == DROP)
-			{
-				jumpattack_check = true;
-				//jump_z -= jump_power * dt;
-				//jump_power += GRAVITY * dt;
-			}
-
 			show_bit = attack_bit;
 			srcw = 90;
 			srch = 40;
@@ -325,7 +323,22 @@ void HERO::animation(float dt)
 				effectpos = makepos(180, 0);
 				break;
 			}
-			if (framedeleay >= 0.04f)
+			if (prev_state == JUMP) {
+				jump_z += jump_power * dt;
+				jump_power -= GRAVITY * dt;
+				if (jump_power < 0) {
+					prev_state = DROP;
+				}
+			}
+			if (prev_state == DROP) {
+				jump_z -= jump_power * dt;
+				jump_power += GRAVITY * dt;
+				if (jump_z <= 0) //ÂøÁö
+				{
+					jump_z = 0;
+				}
+			}
+			if (framedeleay >= 0.1f)
 			{
 				framedeleay = 0;
 				ani_frame++;
@@ -338,13 +351,11 @@ void HERO::animation(float dt)
 					ani_frame = 0;
 					effect_frame = 0;
 					attack = false;
-					if (prev_state == JUMP)
-					{
-						prev_state = ATTACK;
-						state = DROP;
-					}
-					else {
-						state = prev_state;
+					framedeleay = prev_deleay;
+					state = prev_state;
+					if (state == JUMP && jump_power <= 0) {
+						prev_state = ATTACK, state = DROP;
+						jump_power = 0;
 					}
 				}
 				
@@ -360,18 +371,6 @@ void HERO::animation(float dt)
 			srch = 50;
 			srcpos = makepos(direction == RIGHT ? 0 : 1600, 0);
 
-			/*if (prev_state == JUMP)
-			{
-				jump_z += jump_power * dt;
-				jump_power -= GRAVITY * dt;
-
-			}*/
-			/*if (prev_state == DROP)
-			{
-				jump_z -= jump_power * dt;
-				jump_power += GRAVITY * dt;
-			}
-			*/
 			if (direction == RIGHT)
 			{
 				pos.x += dashspeed * dt;
